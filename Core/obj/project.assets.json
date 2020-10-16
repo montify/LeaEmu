@@ -13,11 +13,11 @@
   "project": {
     "version": "1.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\alex\\Desktop\\LeaEmu\\Core\\Core.csproj",
+      "projectUniqueName": "d:\\GIT\\LeaEmu\\Core\\Core.csproj",
       "projectName": "Core",
-      "projectPath": "C:\\Users\\alex\\Desktop\\LeaEmu\\Core\\Core.csproj",
+      "projectPath": "d:\\GIT\\LeaEmu\\Core\\Core.csproj",
       "packagesPath": "C:\\Users\\alex\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\alex\\Desktop\\LeaEmu\\Core\\obj\\",
+      "outputPath": "d:\\GIT\\LeaEmu\\Core\\obj\\",
       "projectStyle": "PackageReference",
       "configFilePaths": [
         "C:\\Users\\alex\\AppData\\Roaming\\NuGet\\NuGet.Config",

@@ -9,6 +9,7 @@ namespace Core
 
 		public Alu(Register register)
 		{
+			//TEST
 			this.m_register = register;
 		}
 

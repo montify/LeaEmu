@@ -20,10 +20,10 @@ namespace Core
 			{
 				var bytes = SplitIntoBytes((ushort)sum);
 				//TODO: WHat to do with bytes.lower?
-				m_register.Write_REG_A(bytes.upper);
+				m_register.Write_REG_A(bytes.upperPart);
 				m_register.Write_Carry_Flag(true);
 
-				if (bytes.upper == 0)
+				if (bytes.upperPart == 0)
 					m_register.Write_Zero_Flag(true);
 			}
 			else
@@ -33,12 +33,9 @@ namespace Core
 			}
 		}
 
-		private (byte lower, byte upper) SplitIntoBytes(ushort value)
+		private (byte lowerPart, byte upperPart) SplitIntoBytes(ushort value)
 		{
-			var least = (byte)(value & 0x00FF);
-			var most = (byte)(value >> 8);
-
-			return (most, least);
+			return ((byte)(value >> 8) , (byte)(value & 0x00FF));
 		}
 
 	}

@@ -6,7 +6,7 @@ namespace Core
 	// http://www.obelisk.me.uk/6502/architecture.html
 	public class Memory
 	{
-		public byte[] m_memory = new byte[8000];
+		public byte[] m_memory = new byte[65536];
 
 		public Memory()
 		{
@@ -15,7 +15,7 @@ namespace Core
 
 		public void ClearAll()
 		{
-			m_memory = new byte[8000];
+			m_memory = new byte[65536];
 
 		}
 
@@ -29,19 +29,17 @@ namespace Core
 
 		public byte Read(ushort adress)
 		{
-			if (adress >= m_memory.Length)
-				throw new Exception("Out of Bounds");
-
 			return m_memory[adress];
 		}
 
-		public void ShowMemory(ushort start, ushort end, int lineBreak)
+
+		public void DebugShowMemory(ushort start, ushort end, int bytesPerRow)
 		{
 			if (start < 0 && end > m_memory.Length)
 				throw new OutOfMemoryException("");
 
 			// Row Number
-			for (int i = 0; i < lineBreak; i++)
+			for (int i = 0; i < bytesPerRow; i++)
 			{
 				if (i == 0)
 					Console.Write("       ");
@@ -51,15 +49,13 @@ namespace Core
 
 			System.Console.WriteLine();
 
-
-
 			//Column Number
 			for (int i = start; i < end + 1; i++)
 			{
-				if (i > start && i % lineBreak == 0)
+				if (i > start && i % bytesPerRow == 0)
 					System.Console.Write('\n');
 
-				if (i % lineBreak == 0)
+				if (i % bytesPerRow == 0)
 					if (i < 100)
 						System.Console.Write(i + ":   ");
 					else

@@ -8,31 +8,27 @@ namespace Core
 	{
 		public ushort PC = 0x0600;
 		public byte SP;
-		public byte REG_A;
-		public byte REG_X;
-		public byte REG_Y;
+		public byte A;
+		public byte X;
+		public byte Y;
 		public bool CarryFlag;
 		public bool ZeroFlag;
 
-		public void Write_REG_A(byte value)
-		{
-			REG_A = value;
-		}
-
+		
 		public void PrintRegister()
 		{
 			var sb = new StringBuilder();
 
 			Console.Write("REG_A: 		");
-			System.Console.Write(REG_A.ToString("x"));
+			System.Console.Write(A.ToString("x"));
 			System.Console.WriteLine();
 
 			Console.Write("IR_X: 		");
-			System.Console.Write(REG_X.ToString("x"));
+			System.Console.Write(X.ToString("x"));
 			System.Console.WriteLine();
 
 			Console.Write("IR_Y: 		");
-			System.Console.Write(REG_Y.ToString("x"));
+			System.Console.Write(Y.ToString("x"));
 			System.Console.WriteLine();
 
 			Console.Write("PC: 		");

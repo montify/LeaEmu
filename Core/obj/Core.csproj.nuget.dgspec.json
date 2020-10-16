@@ -1,17 +1,17 @@
 {
   "format": 1,
   "restore": {
-    "d:\\GIT\\LeaEmu\\Core\\Core.csproj": {}
+    "D:\\GIT\\LeaEmu\\Core\\Core.csproj": {}
   },
   "projects": {
-    "d:\\GIT\\LeaEmu\\Core\\Core.csproj": {
+    "D:\\GIT\\LeaEmu\\Core\\Core.csproj": {
       "version": "1.0.0",
       "restore": {
-        "projectUniqueName": "d:\\GIT\\LeaEmu\\Core\\Core.csproj",
+        "projectUniqueName": "D:\\GIT\\LeaEmu\\Core\\Core.csproj",
         "projectName": "Core",
-        "projectPath": "d:\\GIT\\LeaEmu\\Core\\Core.csproj",
+        "projectPath": "D:\\GIT\\LeaEmu\\Core\\Core.csproj",
         "packagesPath": "C:\\Users\\alex\\.nuget\\packages\\",
-        "outputPath": "d:\\GIT\\LeaEmu\\Core\\obj\\",
+        "outputPath": "D:\\GIT\\LeaEmu\\Core\\obj\\",
         "projectStyle": "PackageReference",
         "configFilePaths": [
           "C:\\Users\\alex\\AppData\\Roaming\\NuGet\\NuGet.Config",

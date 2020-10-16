@@ -7,24 +7,35 @@ namespace Core
 		static void Main(string[] args)
 		{
 			var cpu = new Cpu();
-			cpu.Execute(new Instruction(CPUOpCode.LDA, 0xFA, CPUAdressingMode.Immediate)); // Load 0x80 in REG_A
-			cpu.Execute(new Instruction(CPUOpCode.STA, 0x01, CPUAdressingMode.Immediate)); // Store value from REG_A in memory[0x01] 
-            cpu.Execute(new Instruction(CPUOpCode.ADC, 0x01, CPUAdressingMode.Immediate)); // Store value from REG_A in memory[0x01] 
-           
-            
-            
+			/*cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0xC0)); 
+			cpu.Execute(new CPUInstruction(CPUOpCode.TAX)); //ACCUMULATOR
+			cpu.Execute(new CPUInstruction(CPUOpCode.INX));  //ACCUMULATOR
+			cpu.Execute(new CPUInstruction(CPUOpCode.ADC, CPUAdressingMode.Immediate, 0xC4));
+			*/
+
 		
+			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0x10));
+			cpu.Execute(new CPUInstruction(CPUOpCode.STA, CPUAdressingMode.Immediate, 0x01));
+			cpu.Execute(new CPUInstruction(CPUOpCode.ADC, CPUAdressingMode.Absolute, 0x01));
 
 
 
+			//LDA #$c0  ;Load the hex value $c0 into the A register
+			//TAX       ;Transfer the value in the A register to X
+			//INX       ;Increment the value in the X register
+			//ADC #$c4  ;Add the hex value $c4 to the A register
+			//BRK       ;Break - we're done
 			System.Console.WriteLine("--------REGISTERS---------");
 			cpu.m_register.PrintRegister();
 			System.Console.WriteLine();
 			System.Console.WriteLine("--------MEMORY---------");
 
-			cpu.m_memory.ShowMemory(0x00, 0xFF, 10);
+			cpu.m_memory.DebugMemory(0x00, 0xFF, 10);
+
 
 			Console.Read();
 		}
+
+
 	}
 }

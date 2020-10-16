@@ -6,7 +6,7 @@ namespace Core
 	// http://www.obelisk.me.uk/6502/architecture.html
 	public class Memory
 	{
-		public byte[] m_memory = new byte[8000];
+		public byte[] m_memory = new byte[ushort.MaxValue + 1];
 
 		public Memory()
 		{
@@ -15,8 +15,7 @@ namespace Core
 
 		public void ClearAll()
 		{
-			m_memory = new byte[8000];
-
+			m_memory = new byte[ushort.MaxValue];
 		}
 
 		public void Store(ushort adress, byte value)
@@ -35,7 +34,7 @@ namespace Core
 			return m_memory[adress];
 		}
 
-		public void ShowMemory(ushort start, ushort end, int lineBreak)
+		public void DebugMemory(ushort start, ushort end, int lineBreak)
 		{
 			if (start < 0 && end > m_memory.Length)
 				throw new OutOfMemoryException("");
@@ -65,7 +64,7 @@ namespace Core
 					else
 						System.Console.Write(i + ":  ");
 
-				if (m_memory[i] != 0x00)
+				if (m_memory[i] != 0x0000)
 					Console.ForegroundColor = ConsoleColor.Green;
 
 				System.Console.Write("0x");

@@ -3,19 +3,21 @@ using System;
 namespace Core
 {
 	// http://www.obelisk.me.uk/6502/registers.html
-	public struct Instruction
+	public struct CPUInstruction
 	{
 		public CPUOpCode OpCode;
 		public CPUAdressingMode AdressingMode;
-		public byte Operand;
+		public byte FirstOperand;
+		public byte SecondOperand;
 
-		public Instruction(CPUOpCode opCode, byte operand = default, CPUAdressingMode adressingMode = default)
+		public CPUInstruction(CPUOpCode opCode, CPUAdressingMode adressingMode = default, byte firstOperand = 0x00, byte secondOperand = 0x00)
 		{
 			OpCode = opCode;
 			AdressingMode = adressingMode;
-			Operand = operand;
+			FirstOperand = firstOperand;
+			SecondOperand = secondOperand;
 		}
 
-
+		
 	}
 }

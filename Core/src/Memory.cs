@@ -6,7 +6,7 @@ namespace Core
 	// http://www.obelisk.me.uk/6502/architecture.html
 	public class Memory
 	{
-		public byte[] m_memory = new byte[ushort.MaxValue + 1];
+		private byte[] m_memory = new byte[ushort.MaxValue + 1];
 
 		public Memory()
 		{

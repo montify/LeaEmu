@@ -10,7 +10,7 @@ namespace Core
 			cpu.Execute(new Instruction(CPUOpCode.LDA, 0xFA, CPUAdressingMode.Immediate)); // Load 0x80 in REG_A
 			cpu.Execute(new Instruction(CPUOpCode.STA, 0x01, CPUAdressingMode.Immediate)); // Store value from REG_A in memory[0x01] 
             cpu.Execute(new Instruction(CPUOpCode.ADC, 0x01, CPUAdressingMode.Immediate)); // Store value from REG_A in memory[0x01] 
-              cpu.Execute(new Instruction(CPUOpCode.STA, 0xAE, CPUAdressingMode.Immediate)); // Store value from REG_A in memory[0x01] 
+           
             
             
 		

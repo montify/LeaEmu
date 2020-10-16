@@ -416,7 +416,7 @@ $RECYCLE.BIN/
 *.msm
 *.msp
 
-# Windows ushortcuts
+# Windows shortcuts
 *.lnk
 
 # JetBrains Rider

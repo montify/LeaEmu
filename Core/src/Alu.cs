@@ -33,7 +33,7 @@ namespace Core
 			}
 		}
 
-		public (byte lower, byte upper) SplitIntoBytes(ushort value)
+		private (byte lower, byte upper) SplitIntoBytes(ushort value)
 		{
 			var least = (byte)(value & 0x00FF);
 			var most = (byte)(value >> 8);

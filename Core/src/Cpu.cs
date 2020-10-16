@@ -11,14 +11,12 @@ namespace Core
 		public Memory m_memory { get; private set; }
 		public Alu m_alu { get; private set; }
 
-
 		public Cpu()
 		{
 			m_register = new Register();
 			m_memory = new Memory();
 			m_alu = new Alu(m_register);
 		}
-
 
 		public void Execute(CPUInstruction instruction)
 		{
@@ -43,7 +41,7 @@ namespace Core
 					HandleADC(instruction);
 					break;
 				case CPUOpCode.BRK:
-					break;
+					throw new NotImplementedException();
 				default:
 					throw new Exception($"Bad Instruction or not Implemented");
 			}
@@ -53,56 +51,57 @@ namespace Core
 		{
 			switch (instruction.AdressingMode)
 			{
-				case CPUAdressingMode.Absolute:
-					m_memory.Store((ushort)(instruction.FirstOperand + instruction.SecondOperand), m_register.REG_X);
+				case CPUAdressingMode.ZeroPage:
+					m_memory.Store(AdressMode_ZeroPage(instruction), m_register.Read_REG_X());
 					break;
 				case CPUAdressingMode.ZeroPageY:
-					throw new NotImplementedException("");
+					m_memory.Store(AdressMode_ZeroPageY(instruction), m_register.Read_REG_X());
+					break;
+				case CPUAdressingMode.Absolute:
+					m_memory.Store(AdressMode_Absolute(instruction), m_register.Read_REG_X());
+					break;
 				default:
 					throw new NotImplementedException("");
-
 			}
 		}
 
 		private void HandleADC(CPUInstruction instruction)
 		{
-
 			//http://www.obelisk.me.uk/6502/addressing.html
 			// http://www.6502.org/tutorials/6502opcodes.html#ADC
 			switch (instruction.AdressingMode)
 			{
 				case CPUAdressingMode.Immediate:
-					m_alu.BinaryAdd(m_register.REG_A, instruction.FirstOperand);
+					m_alu.BinaryAdd(m_register.Read_REG_A(), instruction.FirstOperand);
 					break;
 				case CPUAdressingMode.ZeroPage:
-					m_alu.BinaryAdd(m_register.REG_A, m_memory.Read(instruction.FirstOperand));
+					m_alu.BinaryAdd(m_register.Read_REG_A(), m_memory.Read(instruction.FirstOperand));
 					break;
 				case CPUAdressingMode.Absolute:
-					m_alu.BinaryAdd(m_register.REG_A, m_memory.Read((ushort)(instruction.FirstOperand + instruction.SecondOperand)));
+					m_alu.BinaryAdd(m_register.Read_REG_A(), m_memory.Read((ushort)(instruction.FirstOperand + instruction.SecondOperand)));
 					break;
 				case CPUAdressingMode.AbsoluteX:
-					m_alu.BinaryAdd(m_register.REG_A, m_memory.Read((ushort)(instruction.FirstOperand + instruction.SecondOperand + m_register.REG_X)));
+					m_alu.BinaryAdd(m_register.Read_REG_A(), m_memory.Read((ushort)(instruction.FirstOperand + instruction.SecondOperand + m_register.Read_REG_X())));
 					break;
 				case CPUAdressingMode.AbsoluteY:
-					m_alu.BinaryAdd(m_register.REG_A, m_memory.Read((ushort)(instruction.FirstOperand + instruction.SecondOperand + m_register.REG_Y)));
+					m_alu.BinaryAdd(m_register.Read_REG_A(), m_memory.Read((ushort)(instruction.FirstOperand + instruction.SecondOperand + m_register.Read_REG_Y())));
 					break;
 				case CPUAdressingMode.ZeroPageX:
-					m_alu.BinaryAdd(m_register.REG_A, m_memory.Read((byte)(instruction.FirstOperand + m_register.REG_X)));
+					m_alu.BinaryAdd(m_register.Read_REG_A(), m_memory.Read((byte)(instruction.FirstOperand + m_register.Read_REG_X())));
 					break;
 				default:
-				throw new Exception("Wrong AdressMode for ADC");
+					throw new Exception("Wrong AdressMode for ADC");
 			}
-
 		}
 
 		private void HandleINX(CPUInstruction instruction)
 		{
-			m_register.REG_X++;
+			m_register.Increment_REG_X();
 		}
 
 		private void HandleTAX(CPUInstruction instruction)
 		{
-			m_register.REG_X = m_register.REG_A;
+			m_register.Write_REG_X(m_register.Read_REG_A());
 		}
 
 		private void HandleSTA(CPUInstruction instruction)
@@ -110,22 +109,22 @@ namespace Core
 			switch (instruction.AdressingMode)
 			{
 				case CPUAdressingMode.Immediate:
-					m_memory.Store(instruction.FirstOperand, m_register.REG_A);
+					m_memory.Store(instruction.FirstOperand, m_register.Read_REG_A());
 					break;
 				case CPUAdressingMode.Absolute:
-					m_memory.Store((ushort)(instruction.FirstOperand + instruction.SecondOperand), m_register.REG_A);
+					m_memory.Store((ushort)(instruction.FirstOperand + instruction.SecondOperand), m_register.Read_REG_A());
 					break;
 				case CPUAdressingMode.AbsoluteX:
-					m_memory.Store((byte)(instruction.FirstOperand + instruction.SecondOperand + m_register.REG_X), m_register.REG_A);
+					m_memory.Store(AdressMode_AbsoluteX(instruction), m_register.Read_REG_A());
 					break;
 				case CPUAdressingMode.AbsoluteY:
-					m_memory.Store((byte)(instruction.FirstOperand + instruction.SecondOperand + m_register.REG_Y), m_register.REG_A);
+					m_memory.Store(AdressMode_AbsoluteY(instruction), m_register.Read_REG_A());
 					break;
 				case CPUAdressingMode.ZeroPage:
-					m_memory.Store((byte)(instruction.FirstOperand), m_register.REG_A);
+					m_memory.Store((byte)(instruction.FirstOperand), m_register.Read_REG_A());
 					break;
 				default:
-						throw new Exception("Wrong AdressMode for STA");
+					throw new Exception("Wrong AdressMode for STA");
 			}
 		}
 
@@ -160,14 +159,14 @@ namespace Core
 		private byte AdressMode_Accumulator(CPUInstruction instruction) => default;
 		private byte AdressMode_Immediate(CPUInstruction instruction) => instruction.FirstOperand;
 		private byte AdressMode_ZeroPage(CPUInstruction instruction) => (byte)(instruction.FirstOperand);
-		private byte AdressMode_ZeroPageX(CPUInstruction instruction) => (byte)(instruction.FirstOperand + m_register.REG_X);
-		private byte AdressMode_ZeroPageY(CPUInstruction instruction) => (byte)(instruction.FirstOperand + m_register.REG_Y);
+		private byte AdressMode_ZeroPageX(CPUInstruction instruction) => (byte)(instruction.FirstOperand + m_register.Read_REG_X());
+		private byte AdressMode_ZeroPageY(CPUInstruction instruction) => (byte)(instruction.FirstOperand + m_register.Read_REG_Y());
 
 		//private short AdressMode_Relative(CPUInstruction instruction) => ;
 
 		private ushort AdressMode_Absolute(CPUInstruction instruction) => (ushort)(instruction.FirstOperand + instruction.SecondOperand);
-		private ushort AdressMode_AbsoluteX(CPUInstruction instruction) => (ushort)(instruction.FirstOperand + instruction.SecondOperand + m_register.REG_X);
-		private ushort AdressMode_AbsoluteY(CPUInstruction instruction) => (ushort)(instruction.FirstOperand + instruction.SecondOperand + m_register.REG_Y);
+		private ushort AdressMode_AbsoluteX(CPUInstruction instruction) => (ushort)(instruction.FirstOperand + instruction.SecondOperand + m_register.Read_REG_X());
+		private ushort AdressMode_AbsoluteY(CPUInstruction instruction) => (ushort)(instruction.FirstOperand + instruction.SecondOperand + m_register.Read_REG_Y());
 
 		//	private byte AdressMode_Indirect(CPUInstruction instruction) => ;
 

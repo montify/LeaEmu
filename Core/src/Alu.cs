@@ -16,20 +16,20 @@ namespace Core
 		{
 			int sum = right + left;
 
-			if (sum > 0xFF) 
+			if (sum > 0xFF)
 			{
 				var bytes = SplitIntoBytes((ushort)sum);
 				//TODO: WHat to do with bytes.lower?
 				m_register.Write_REG_A(bytes.upper);
-				m_register.CarryFlag = true;
+				m_register.Write_Carry_Flag(true);
 
-				if(bytes.upper == 0)
-				m_register.ZeroFlag = true;
+				if (bytes.upper == 0)
+					m_register.Write_Zero_Flag(true);
 			}
 			else
 			{
 				m_register.Write_REG_A((byte)sum);
-				m_register.CarryFlag = false;  //??
+				m_register.Write_Carry_Flag(false);  //??
 			}
 		}
 

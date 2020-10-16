@@ -10,7 +10,7 @@ namespace Core
 		public byte FirstOperand;
 		public byte SecondOperand;
 
-		public CPUInstruction(CPUOpCode opCode, CPUAdressingMode adressingMode = default, byte firstOperand = 0x00, byte secondOperand = 0x00)
+		public CPUInstruction(CPUOpCode opCode, CPUAdressingMode adressingMode = CPUAdressingMode.Accumulator, byte firstOperand = 0x00, byte secondOperand = 0x00)
 		{
 			OpCode = opCode;
 			AdressingMode = adressingMode;

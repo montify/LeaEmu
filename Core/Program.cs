@@ -7,17 +7,12 @@ namespace Core
 		static void Main(string[] args)
 		{
 			var cpu = new Cpu();
-			/*cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0xC0)); 
+			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0xC0)); 
 			cpu.Execute(new CPUInstruction(CPUOpCode.TAX)); //ACCUMULATOR
 			cpu.Execute(new CPUInstruction(CPUOpCode.INX));  //ACCUMULATOR
-			cpu.Execute(new CPUInstruction(CPUOpCode.ADC, CPUAdressingMode.Immediate, 0xC4));
-			*/
-
-		
-			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0x10));
-			cpu.Execute(new CPUInstruction(CPUOpCode.STA, CPUAdressingMode.Immediate, 0x01));
-			cpu.Execute(new CPUInstruction(CPUOpCode.ADC, CPUAdressingMode.Absolute, 0x01));
-
+			cpu.Execute(new CPUInstruction(CPUOpCode.STX, CPUAdressingMode.ZeroPage, 0xA)); 
+			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.ZeroPage, 0xA)); 
+			
 
 
 			//LDA #$c0  ;Load the hex value $c0 into the A register

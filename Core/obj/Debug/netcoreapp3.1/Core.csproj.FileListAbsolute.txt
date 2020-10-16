@@ -11,16 +11,3 @@ C:\Users\alex\Desktop\LeaEmu\Core\obj\Debug\netcoreapp3.1\Core.csproj.CoreCompil
 C:\Users\alex\Desktop\LeaEmu\Core\obj\Debug\netcoreapp3.1\Core.dll
 C:\Users\alex\Desktop\LeaEmu\Core\obj\Debug\netcoreapp3.1\Core.pdb
 C:\Users\alex\Desktop\LeaEmu\Core\obj\Debug\netcoreapp3.1\Core.genruntimeconfig.cache
-D:\GIT\LeaEmu\Core\bin\Debug\netcoreapp3.1\Core.exe
-D:\GIT\LeaEmu\Core\bin\Debug\netcoreapp3.1\Core.deps.json
-D:\GIT\LeaEmu\Core\bin\Debug\netcoreapp3.1\Core.runtimeconfig.json
-D:\GIT\LeaEmu\Core\bin\Debug\netcoreapp3.1\Core.runtimeconfig.dev.json
-D:\GIT\LeaEmu\Core\bin\Debug\netcoreapp3.1\Core.dll
-D:\GIT\LeaEmu\Core\bin\Debug\netcoreapp3.1\Core.pdb
-D:\GIT\LeaEmu\Core\obj\Debug\netcoreapp3.1\Core.csprojAssemblyReference.cache
-D:\GIT\LeaEmu\Core\obj\Debug\netcoreapp3.1\Core.AssemblyInfoInputs.cache
-D:\GIT\LeaEmu\Core\obj\Debug\netcoreapp3.1\Core.AssemblyInfo.cs
-D:\GIT\LeaEmu\Core\obj\Debug\netcoreapp3.1\Core.csproj.CoreCompileInputs.cache
-D:\GIT\LeaEmu\Core\obj\Debug\netcoreapp3.1\Core.dll
-D:\GIT\LeaEmu\Core\obj\Debug\netcoreapp3.1\Core.pdb
-D:\GIT\LeaEmu\Core\obj\Debug\netcoreapp3.1\Core.genruntimeconfig.cache

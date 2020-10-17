@@ -6,20 +6,42 @@ namespace Core
 	// http://www.obelisk.me.uk/6502/registers.html
 	public class Register
 	{
-		private ushort PC = 0x0600;
-		private byte SP;
+		private short PC = 0x0600;
+		private ushort SP = 0x01FF; // The 6502 has hardware support for a stack implemented using a 256-byte array whose location is hardcoded at page $01 ($0100-$01FF)
 		private byte REG_A;
 		private byte REG_X;
 		private byte REG_Y;
 		private bool CarryFlag;
 		private bool ZeroFlag;
 
+		public short Write_Set_PC_Offset(byte value) => PC += value;
+
+		public void Increment_SP(byte size) //Stack grows down, from 0xFF to 0x00
+		{
+			var newLocation = SP + size;
+
+			if (newLocation < 0x0100 || newLocation > 0x01FF)
+						throw new StackOverflowException($"SP try to read out of Bounds at: {newLocation.ToString("X4")}");
+
+			SP += size;
+		}
+		public void Decrement_SP(byte size) //Stack grows down, from $01FF to $0100
+		{
+			var newLocation = SP - size;
+
+			if (newLocation < 0x0100 || newLocation > 0x01FF)
+				throw new StackOverflowException($"SP try to read out of Bounds at: {newLocation.ToString("X4")}");
+
+			SP -= size;
+		}
 		public void Write_REG_A(byte value) => REG_A = value;
 		public void Write_REG_X(byte value) => REG_X = value;
 		public void Write_REG_y(byte value) => REG_Y = value;
 		public bool Write_Carry_Flag(bool value) => CarryFlag = value;
 		public bool Write_Zero_Flag(bool value) => ZeroFlag = value;
 
+		public ushort Read_SP() => SP;
+		public short Read_PC() => PC;
 		public byte Read_REG_A() => REG_A;
 		public byte Read_REG_X() => REG_X;
 		public byte Read_REG_Y() => REG_Y;
@@ -30,7 +52,7 @@ namespace Core
 		public void Increment_REG_X() => REG_X++;
 		public void Increment_REG_Y() => REG_Y++;
 
-		
+
 		public void PrintRegister()
 		{
 			var sb = new StringBuilder();
@@ -65,6 +87,6 @@ namespace Core
 		}
 	}
 
-	
+
 
 }

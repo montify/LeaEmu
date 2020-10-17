@@ -7,13 +7,23 @@ namespace Core
 		static void Main(string[] args)
 		{
 			var cpu = new Cpu();
-			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0xC0)); 
-			cpu.Execute(new CPUInstruction(CPUOpCode.TAX)); //ACCUMULATOR
-			cpu.Execute(new CPUInstruction(CPUOpCode.INX));  //ACCUMULATOR
-			cpu.Execute(new CPUInstruction(CPUOpCode.STX, CPUAdressingMode.ZeroPage, 0xA)); 
-			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.ZeroPage, 0xA)); 
-			
 
+
+			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0x01));
+			cpu.Execute(new CPUInstruction(CPUOpCode.PHA));
+			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0xFF));
+			cpu.Execute(new CPUInstruction(CPUOpCode.PLA));
+			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0xFF));
+
+
+	
+			/*	
+			LDA #$01	!!
+			STA $20		!
+			LDA #$05	!
+			STA $021!
+			LDA #$08
+			STA $22*/
 
 			//LDA #$c0  ;Load the hex value $c0 into the A register
 			//TAX       ;Transfer the value in the A register to X
@@ -25,8 +35,9 @@ namespace Core
 			System.Console.WriteLine();
 			System.Console.WriteLine("--------MEMORY---------");
 
-			cpu.m_memory.DebugMemory(0x00, 0xFF, 10);
 
+			cpu.m_memory.DebugMemory(0x00, 0x208, 10);
+			//cpu.m_memory.DebugStackRegion();
 
 			Console.Read();
 		}

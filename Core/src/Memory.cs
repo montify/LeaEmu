@@ -7,23 +7,27 @@ namespace Core
 	public class Memory
 	{
 		private byte[] m_memory = new byte[ushort.MaxValue + 1];
-
+		
 		public Memory()
 		{
-
 		}
-
+		
 		public void ClearAll()
 		{
 			m_memory = new byte[ushort.MaxValue];
 		}
 
-		public void Store(ushort adress, byte value)
+		public void Write(ushort adress, byte value)
 		{
 			if (adress > m_memory.Length)
 				throw new Exception("Out of Bounds");
 
 			m_memory[adress] = value;
+		}
+
+		public void Push_Stack(byte value)
+		{
+				
 		}
 
 		public byte Read(ushort adress)
@@ -45,7 +49,7 @@ namespace Core
 				if (i == 0)
 					Console.Write("       ");
 
-				Console.Write(i + "    ");
+				Console.Write(i.ToString("X2") + "   ");
 			}
 
 			System.Console.WriteLine();
@@ -60,18 +64,29 @@ namespace Core
 
 				if (i % lineBreak == 0)
 					if (i < 100)
-						System.Console.Write(i + ":   ");
+						System.Console.Write(i.ToString("X2") + ":   ");
 					else
-						System.Console.Write(i + ":  ");
+						System.Console.Write(i.ToString("X2") + ":  ");
 
-				if (m_memory[i] != 0x0000)
+				if( i > 0x0100 && i < 0x01FF ) //Stack Region
+					Console.ForegroundColor = ConsoleColor.Blue;
+
+				if (m_memory[i] != 0x0000) //Color every byte that are not 0x00
 					Console.ForegroundColor = ConsoleColor.Green;
 
 				System.Console.Write("0x");
 				System.Console.Write(m_memory[i].ToString("X2") + " ");
 
 				Console.ResetColor();
+
+				
 			}
+		}
+	
+	
+		public void DebugStackRegion()
+		{
+			DebugMemory(0x0100, 0x01FF, 10);
 		}
 	}
 }

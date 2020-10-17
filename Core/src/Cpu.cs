@@ -14,7 +14,7 @@ namespace Core
 		public Cpu()
 		{
 			m_register = new Register();
-			m_memory = new Memory();
+			m_memory = new Memory(ushort.MaxValue);
 			m_alu = new Alu(m_register);
 		}
 

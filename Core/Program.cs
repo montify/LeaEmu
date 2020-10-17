@@ -15,8 +15,12 @@ namespace Core
 			cpu.Execute(new CPUInstruction(CPUOpCode.PLA));
 			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0xFF));
 
+			for (int i = 0; i < 0xFF; i++)
+			{
+				cpu.Execute(new CPUInstruction(CPUOpCode.PHA));
+			}
 
-	
+
 			/*	
 			LDA #$01	!!
 			STA $20		!

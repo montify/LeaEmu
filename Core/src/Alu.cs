@@ -16,24 +16,24 @@ namespace Core
 		{
 			int sum = right + left;
 
-			if (sum > 0xFF)
+			if (sum > 0xFF) //Carry Bit ;)
 			{
-				var bytes = SplitIntoBytes((ushort)sum);
+				var bytes = UShortToTwoBytes((ushort)sum);
 				//TODO: WHat to do with bytes.lower?
 				m_register.Write_REG_A(bytes.upperPart);
-				m_register.Write_Carry_Flag(true);
+				m_register.Set_Carry_Flag(true);
 
 				if (bytes.upperPart == 0)
-					m_register.Write_Zero_Flag(true);
+					m_register.Set_Zero_Flag(true);
 			}
 			else
 			{
 				m_register.Write_REG_A((byte)sum);
-				m_register.Write_Carry_Flag(false);  //??
+				m_register.Set_Carry_Flag(false);  //??
 			}
 		}
 
-		private (byte lowerPart, byte upperPart) SplitIntoBytes(ushort value)
+		private (byte lowerPart, byte upperPart) UShortToTwoBytes(ushort value)
 		{
 			return ((byte)(value >> 8) , (byte)(value & 0x00FF));
 		}

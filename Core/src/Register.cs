@@ -20,25 +20,21 @@ namespace Core
 		{
 			var newLocation = SP + size;
 
-			if (newLocation < 0x0100 || newLocation > 0x01FF)
-						throw new StackOverflowException($"SP try to read out of Bounds at: {newLocation.ToString("X4")}");
-
-			SP += size;
+			if (CheckStackPointerBounds(newLocation))
+				SP += size;
 		}
 		public void Decrement_SP(byte size) //Stack grows down, from $01FF to $0100
 		{
 			var newLocation = SP - size;
 
-			if (newLocation < 0x0100 || newLocation > 0x01FF)
-				throw new StackOverflowException($"SP try to read out of Bounds at: {newLocation.ToString("X4")}");
-
-			SP -= size;
+			if (CheckStackPointerBounds(newLocation))
+				SP -= size;
 		}
 		public void Write_REG_A(byte value) => REG_A = value;
 		public void Write_REG_X(byte value) => REG_X = value;
 		public void Write_REG_y(byte value) => REG_Y = value;
-		public bool Write_Carry_Flag(bool value) => CarryFlag = value;
-		public bool Write_Zero_Flag(bool value) => ZeroFlag = value;
+		public bool Set_Carry_Flag(bool value) => CarryFlag = value;
+		public bool Set_Zero_Flag(bool value) => ZeroFlag = value;
 
 		public ushort Read_SP() => SP;
 		public short Read_PC() => PC;
@@ -52,6 +48,13 @@ namespace Core
 		public void Increment_REG_X() => REG_X++;
 		public void Increment_REG_Y() => REG_Y++;
 
+		private bool CheckStackPointerBounds(int newLocation)
+		{
+			if (newLocation < 0x0100 || newLocation > 0x01FF)
+				throw new StackOverflowException($"SP: Failed to access Location: <{newLocation.ToString("X4")}> is Outside of the Stack!");
+
+			return true;
+		}
 
 		public void PrintRegister()
 		{
@@ -86,7 +89,4 @@ namespace Core
 			System.Console.WriteLine();
 		}
 	}
-
-
-
 }

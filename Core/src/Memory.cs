@@ -6,15 +6,18 @@ namespace Core
 	// http://www.obelisk.me.uk/6502/architecture.html
 	public class Memory
 	{
-		private byte[] m_memory = new byte[ushort.MaxValue + 1];
+		private byte[] m_memory;
+		private ushort m_Size; 
 		
-		public Memory()
+		public Memory(ushort size)
 		{
+			m_memory = new byte[size];
+			m_Size = size;
 		}
-		
+
 		public void ClearAll()
 		{
-			m_memory = new byte[ushort.MaxValue];
+			m_memory = new byte[m_Size];
 		}
 
 		public void Write(ushort adress, byte value)
@@ -23,11 +26,6 @@ namespace Core
 				throw new Exception("Out of Bounds");
 
 			m_memory[adress] = value;
-		}
-
-		public void Push_Stack(byte value)
-		{
-				
 		}
 
 		public byte Read(ushort adress)
@@ -68,7 +66,7 @@ namespace Core
 					else
 						System.Console.Write(i.ToString("X2") + ":  ");
 
-				if( i > 0x0100 && i < 0x01FF ) //Stack Region
+				if (i > 0x0100 && i < 0x01FF) //Stack Region
 					Console.ForegroundColor = ConsoleColor.Blue;
 
 				if (m_memory[i] != 0x0000) //Color every byte that are not 0x00
@@ -79,11 +77,10 @@ namespace Core
 
 				Console.ResetColor();
 
-				
+
 			}
 		}
-	
-	
+
 		public void DebugStackRegion()
 		{
 			DebugMemory(0x0100, 0x01FF, 10);

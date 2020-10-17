@@ -68,11 +68,11 @@ namespace Core
 
 
 			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.ZeroPage, 0x00));
-			cpu.Execute(new CPUInstruction(CPUOpCode.CLC)); // Note Carry-Flag must set to 1 for Substraction (Borrow)
+			cpu.Execute(new CPUInstruction(CPUOpCode.CLC)); // Note Carry-Flag must set to 0 for Addition (Borrow)
 			cpu.Execute(new CPUInstruction(CPUOpCode.ADC, CPUAdressingMode.ZeroPage, 0x02));
 			cpu.Execute(new CPUInstruction(CPUOpCode.STA, CPUAdressingMode.ZeroPage, 0xA));
 			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.ZeroPage, 0x01));
-			cpu.Execute(new CPUInstruction(CPUOpCode.CLC)); // Note Carry-Flag must set to 1 for Substraction (Borrow)
+			cpu.Execute(new CPUInstruction(CPUOpCode.CLC)); // Note Carry-Flag must set to 0 for Addition (Borrow)
 			cpu.Execute(new CPUInstruction(CPUOpCode.ADC, CPUAdressingMode.ZeroPage, 0x03));
 			cpu.Execute(new CPUInstruction(CPUOpCode.STA, CPUAdressingMode.ZeroPage, 0xB));
 

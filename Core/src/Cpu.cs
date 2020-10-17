@@ -65,22 +65,22 @@ namespace Core
 			switch (instruction.AdressingMode)
 			{
 				case CPUAdressingMode.Immediate:
-					m_alu.BinarySubstract(m_register.Read_REG_A(), instruction.FirstOperand);
+					m_alu.BinarySub(m_register.Read_REG_A(), instruction.FirstOperand);
 					break;
 				case CPUAdressingMode.ZeroPage:
-					m_alu.BinarySubstract(m_register.Read_REG_A(), m_memory.Read(instruction.FirstOperand));
+					m_alu.BinarySub(m_register.Read_REG_A(), m_memory.Read(instruction.FirstOperand));
 					break;
 				case CPUAdressingMode.Absolute:
-					m_alu.BinarySubstract(m_register.Read_REG_A(), m_memory.Read((ushort)(instruction.FirstOperand + instruction.SecondOperand)));
+					m_alu.BinarySub(m_register.Read_REG_A(), m_memory.Read((ushort)(instruction.FirstOperand + instruction.SecondOperand)));
 					break;
 				case CPUAdressingMode.AbsoluteX:
-					m_alu.BinarySubstract(m_register.Read_REG_A(), m_memory.Read((ushort)(instruction.FirstOperand + instruction.SecondOperand + m_register.Read_REG_X())));
+					m_alu.BinarySub(m_register.Read_REG_A(), m_memory.Read((ushort)(instruction.FirstOperand + instruction.SecondOperand + m_register.Read_REG_X())));
 					break;
 				case CPUAdressingMode.AbsoluteY:
-					m_alu.BinarySubstract(m_register.Read_REG_A(), m_memory.Read((ushort)(instruction.FirstOperand + instruction.SecondOperand + m_register.Read_REG_Y())));
+					m_alu.BinarySub(m_register.Read_REG_A(), m_memory.Read((ushort)(instruction.FirstOperand + instruction.SecondOperand + m_register.Read_REG_Y())));
 					break;
 				case CPUAdressingMode.ZeroPageX:
-					m_alu.BinarySubstract(m_register.Read_REG_A(), m_memory.Read((byte)(instruction.FirstOperand + m_register.Read_REG_X())));
+					m_alu.BinarySub(m_register.Read_REG_A(), m_memory.Read((byte)(instruction.FirstOperand + m_register.Read_REG_X())));
 					break;
 				default:
 					throw new Exception("Wrong AdressMode for ADC");

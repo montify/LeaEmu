@@ -53,6 +53,12 @@ namespace Core
 				case CPUOpCode.PLA:
 					HandlePLA(instruction);
 					break;
+				case CPUOpCode.SEC:
+					m_register.Set_Carry_Flag(true);
+					break;
+				case CPUOpCode.CLC:
+					m_register.Set_Carry_Flag(false);
+					break;
 				case CPUOpCode.BRK:
 					throw new NotImplementedException();
 				default:
@@ -191,7 +197,7 @@ namespace Core
 					m_memory.Write(instruction.FirstOperand, m_register.Read_REG_A());
 					break;
 				case CPUAdressingMode.Absolute:
-					m_memory.Write((ushort)(instruction.FirstOperand + instruction.SecondOperand), m_register.Read_REG_A());
+					m_memory.Write(AdressMode_Absolute(instruction), m_register.Read_REG_A());
 					break;
 				case CPUAdressingMode.AbsoluteX:
 					m_memory.Write(AdressMode_AbsoluteX(instruction), m_register.Read_REG_A());

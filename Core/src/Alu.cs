@@ -33,7 +33,7 @@ namespace Core
 			if (result > 0xFF)
 				m_register.Set_Carry_Flag(true);
 
-			result = (byte)(result & 0xff);
+			result = (byte)(result & 0xFF);
 			m_register.Set_Zero_Flag(!Convert.ToBoolean(result));
 
 			m_register.Write_REG_A((byte)result);

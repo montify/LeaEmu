@@ -9,17 +9,14 @@ namespace Core
 			var cpu = new Cpu();
 
 
-			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0x01));
-			cpu.Execute(new CPUInstruction(CPUOpCode.PHA));
-			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0xFF));
-			cpu.Execute(new CPUInstruction(CPUOpCode.PLA));
-			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0xFF));
-
-			for (int i = 0; i < 0xFF; i++)
-			{
+			/*	cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0x01));
 				cpu.Execute(new CPUInstruction(CPUOpCode.PHA));
-			}
-
+				cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0xFF));
+				cpu.Execute(new CPUInstruction(CPUOpCode.PLA));
+				cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0xFF));
+	*/
+			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0xA));
+			cpu.Execute(new CPUInstruction(CPUOpCode.SBC, CPUAdressingMode.Immediate, 0xB));
 
 			/*	
 			LDA #$01	!!
@@ -40,7 +37,7 @@ namespace Core
 			System.Console.WriteLine("--------MEMORY---------");
 
 
-			cpu.m_memory.DebugMemory(0x00, 0x208, 10);
+			//	cpu.m_memory.DebugMemory(0x00, 0x208, 10);
 			//cpu.m_memory.DebugStackRegion();
 
 			Console.Read();

@@ -44,6 +44,9 @@ namespace Core
 				case CPUOpCode.ADC:
 					HandleADC(instruction);
 					break;
+				case CPUOpCode.SBC:
+					HandleSBC(instruction);
+					break;
 				case CPUOpCode.PHA:
 					HandlePHA(instruction);
 					break;
@@ -54,6 +57,33 @@ namespace Core
 					throw new NotImplementedException();
 				default:
 					throw new Exception($"Bad Instruction or not Implemented");
+			}
+		}
+
+		private void HandleSBC(CPUInstruction instruction)
+		{
+			switch (instruction.AdressingMode)
+			{
+				case CPUAdressingMode.Immediate:
+					m_alu.BinarySubstract(m_register.Read_REG_A(), instruction.FirstOperand);
+					break;
+				case CPUAdressingMode.ZeroPage:
+					m_alu.BinarySubstract(m_register.Read_REG_A(), m_memory.Read(instruction.FirstOperand));
+					break;
+				case CPUAdressingMode.Absolute:
+					m_alu.BinarySubstract(m_register.Read_REG_A(), m_memory.Read((ushort)(instruction.FirstOperand + instruction.SecondOperand)));
+					break;
+				case CPUAdressingMode.AbsoluteX:
+					m_alu.BinarySubstract(m_register.Read_REG_A(), m_memory.Read((ushort)(instruction.FirstOperand + instruction.SecondOperand + m_register.Read_REG_X())));
+					break;
+				case CPUAdressingMode.AbsoluteY:
+					m_alu.BinarySubstract(m_register.Read_REG_A(), m_memory.Read((ushort)(instruction.FirstOperand + instruction.SecondOperand + m_register.Read_REG_Y())));
+					break;
+				case CPUAdressingMode.ZeroPageX:
+					m_alu.BinarySubstract(m_register.Read_REG_A(), m_memory.Read((byte)(instruction.FirstOperand + m_register.Read_REG_X())));
+					break;
+				default:
+					throw new Exception("Wrong AdressMode for ADC");
 			}
 		}
 

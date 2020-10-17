@@ -14,29 +14,35 @@ namespace Core
 
 		public void BinaryAdd(byte left, byte right)
 		{
-			int sum = right + left;
+			var result = left + right + Convert.ToByte(m_register.Read_Carry_Flag());
 
-			if (sum > 0xFF) //Carry Bit ;)
-			{
-				var bytes = UShortToTwoBytes((ushort)sum);
-				//TODO: WHat to do with bytes.lower?
-				m_register.Write_REG_A(bytes.upperPart);
+			if (result > 0xFF)
 				m_register.Set_Carry_Flag(true);
 
-				if (bytes.upperPart == 0)
-					m_register.Set_Zero_Flag(true);
-			}
-			else
-			{
-				m_register.Write_REG_A((byte)sum);
-				m_register.Set_Carry_Flag(false);  //??
-			}
+			result = (byte)(result & 0xff);
+			m_register.Set_Zero_Flag(!Convert.ToBoolean(result));
+
+			m_register.Write_REG_A((byte)result);
+
+		}
+
+		internal void BinarySub(byte left, byte right)
+		{
+			var result = left + (right ^ 0xFF) + Convert.ToByte(m_register.Read_Carry_Flag());
+
+			if (result > 0xFF)
+				m_register.Set_Carry_Flag(true);
+
+			result = (byte)(result & 0xff);
+			m_register.Set_Zero_Flag(!Convert.ToBoolean(result));
+
+			m_register.Write_REG_A((byte)result);
+
 		}
 
 		private (byte lowerPart, byte upperPart) UShortToTwoBytes(ushort value)
 		{
-			return ((byte)(value >> 8) , (byte)(value & 0x00FF));
+			return ((byte)(value >> 8), (byte)(value & 0x00FF));
 		}
-
 	}
 }

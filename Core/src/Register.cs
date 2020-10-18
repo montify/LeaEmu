@@ -7,7 +7,7 @@ namespace Core
 	public class Register
 	{
 		private short PC = 0x0600;
-		private byte SP = 0xFF;
+		private byte SP = 0xFF; //Set to 0xFF because the stack grows down towards 0x0100, so SP range is 0xFF 0x00
 		private byte REG_A;
 		private byte REG_X;
 		private byte REG_Y;
@@ -19,18 +19,14 @@ namespace Core
 
 		public void Increment_SP(byte size) //Stack grows down, from 0x01FF to 0x0100
 		{
-			var newLocation = (m_StackOffset + SP) + size;
-
-			if (CheckStackPointerBounds(newLocation))
-				SP += size;
+			SP += size;
+			
 		}
 		public void Decrement_SP(byte size) //Stack grows down, from 0x01FF to 0x0100
 		{
-			var newLocation = (m_StackOffset + SP) - size;
-
-			if (CheckStackPointerBounds(newLocation))
-				SP -= size;
+			SP -= size;
 		}
+
 		public void Write_REG_A(byte value) => REG_A = value;
 		public void Write_REG_X(byte value) => REG_X = value;
 		public void Write_REG_y(byte value) => REG_Y = value;
@@ -48,14 +44,6 @@ namespace Core
 		public void Increment_REG_A() => REG_A++;
 		public void Increment_REG_X() => REG_X++;
 		public void Increment_REG_Y() => REG_Y++;
-
-		private bool CheckStackPointerBounds(int newLocation)
-		{
-			if (newLocation < 0x0100 || newLocation > 0x01FF)
-				throw new StackOverflowException($"SP: Failed to access Location: <{newLocation.ToString("X4")}> is Outside of the Stack!");
-
-			return true;
-		}
 
 		public void PrintRegister()
 		{

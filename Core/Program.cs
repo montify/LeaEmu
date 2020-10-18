@@ -92,8 +92,6 @@ namespace Core
 			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0x20));//Number2 HI
 			cpu.Execute(new CPUInstruction(CPUOpCode.STA, CPUAdressingMode.ZeroPage, 0x03));
 
-
-
 			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.ZeroPage, 0x00));
 			cpu.Execute(new CPUInstruction(CPUOpCode.SEC)); // Note Carry-Flag must set to 1 for Substraction (Borrow)
 			cpu.Execute(new CPUInstruction(CPUOpCode.SBC, CPUAdressingMode.ZeroPage, 0x02));
@@ -104,26 +102,14 @@ namespace Core
 			cpu.Execute(new CPUInstruction(CPUOpCode.STA, CPUAdressingMode.ZeroPage, 0xB));
 
 
-			//Stack Test
-			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0xFF));
-			cpu.Execute(new CPUInstruction(CPUOpCode.PHA));
-			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0xEE));
-			cpu.Execute(new CPUInstruction(CPUOpCode.PHA));
-			cpu.Execute(new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 0xCC));
-			cpu.Execute(new CPUInstruction(CPUOpCode.PHA));
-			var lookUp = new OpCodeLookUpTable();
-
-			lookUp.GetNextInstruction();
-
-
 			System.Console.WriteLine("--------REGISTERS---------");
 			cpu.m_register.PrintRegister();
 			System.Console.WriteLine();
 			System.Console.WriteLine("--------MEMORY---------");
 
 
-			//cpu.m_memory.DebugMemory(0x0100, 0x01FF, 10);
-			cpu.m_memory.DebugStackRegion();
+			cpu.m_memory.DebugMemory(0x0, 0xFFF, 10);
+			//cpu.m_memory.DebugStackRegion();
 
 			Console.Read();
 		}

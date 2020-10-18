@@ -66,11 +66,11 @@ namespace Core
 					else
 						System.Console.Write(i.ToString("X2") + ":  ");
 
-				if (i < 0x0100 && i > 0x01FF) //Stack Region
+				if (i >= 0x0100 && i <= 0x01FF) //Stack Region
 					Console.ForegroundColor = ConsoleColor.Blue;
 
-				if (m_memory[i] != 0x0000) //Color every byte that are not 0x00
-					Console.ForegroundColor = ConsoleColor.Green;
+			//	if (m_memory[i] != 0x0000) //Color every byte that are not 0x00
+			//		Console.ForegroundColor = ConsoleColor.Green;
 
 				System.Console.Write("0x");
 				System.Console.Write(m_memory[i].ToString("X2") + " ");

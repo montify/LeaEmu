@@ -10,6 +10,8 @@ namespace Core
 		public byte FirstOperand;
 		public byte SecondOperand;
 
+		//public int InstructionByteLength;
+
 		public CPUInstruction(CPUOpCode opCode, CPUAdressingMode adressingMode = CPUAdressingMode.Accumulator, byte firstOperand = 0x00, byte secondOperand = 0x00)
 		{
 			OpCode = opCode;
@@ -18,6 +20,6 @@ namespace Core
 			SecondOperand = secondOperand;
 		}
 
-		
+
 	}
 }

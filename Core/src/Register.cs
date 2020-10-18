@@ -7,25 +7,26 @@ namespace Core
 	public class Register
 	{
 		private short PC = 0x0600;
-		private ushort SP = 0x01FF; // The 6502 has hardware support for a stack implemented using a 256-byte array whose location is hardcoded at page $01 ($0100-$01FF)
+		private byte SP = 0xFF;
 		private byte REG_A;
 		private byte REG_X;
 		private byte REG_Y;
 		private bool CarryFlag;
 		private bool ZeroFlag;
 
+		private ushort m_StackOffset = 0x0100; //Because Stack starts at 0x0100 we must add this Value to SP because SP is a byte .
 		public short Write_Set_PC_Offset(byte value) => PC += value;
 
-		public void Increment_SP(byte size) //Stack grows down, from 0xFF to 0x00
+		public void Increment_SP(byte size) //Stack grows down, from 0x01FF to 0x0100
 		{
-			var newLocation = SP + size;
+			var newLocation = (m_StackOffset + SP) + size;
 
 			if (CheckStackPointerBounds(newLocation))
 				SP += size;
 		}
-		public void Decrement_SP(byte size) //Stack grows down, from $01FF to $0100
+		public void Decrement_SP(byte size) //Stack grows down, from 0x01FF to 0x0100
 		{
-			var newLocation = SP - size;
+			var newLocation = (m_StackOffset + SP) - size;
 
 			if (CheckStackPointerBounds(newLocation))
 				SP -= size;
@@ -36,7 +37,7 @@ namespace Core
 		public bool Set_Carry_Flag(bool value) => CarryFlag = value;
 		public bool Set_Zero_Flag(bool value) => ZeroFlag = value;
 
-		public ushort Read_SP() => SP;
+		public ushort Read_SP() => (ushort)(SP + m_StackOffset);
 		public short Read_PC() => PC;
 		public byte Read_REG_A() => REG_A;
 		public byte Read_REG_X() => REG_X;

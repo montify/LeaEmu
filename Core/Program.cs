@@ -108,7 +108,7 @@ namespace Core
 			System.Console.WriteLine("--------MEMORY---------");
 
 
-			cpu.m_memory.DebugMemory(0x0, 0xFFF, 10);
+			cpu.m_memory.DebugMemory(0x0, 0xFF, 10);
 			//cpu.m_memory.DebugStackRegion();
 
 			Console.Read();

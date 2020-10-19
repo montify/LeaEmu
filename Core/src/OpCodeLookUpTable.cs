@@ -24,7 +24,7 @@ public class OpCodeTable
 	public CPUInstruction ConvertHexToCpuInstrucution(byte instruction)
 	{
 		OpCodeLookUp.TryGetValue(instruction, out var cPUInstruction);
-	//
+		//
 		return cPUInstruction;
 	}
 }

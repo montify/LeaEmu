@@ -6,7 +6,7 @@ namespace Core
 	// http://www.obelisk.me.uk/6502/registers.html
 	public class Register
 	{
-		private short PC = 0x0600;
+		private ushort PC = 0x0000;
 		private byte SP = 0xFF; //Set to 0xFF because the stack grows down towards 0x0100, so SP range is 0xFF 0x00
 		private byte REG_A;
 		private byte REG_X;
@@ -15,12 +15,12 @@ namespace Core
 		private bool ZeroFlag;
 
 		private ushort m_StackOffset = 0x0100; //Because Stack starts at 0x0100 we must add this Value to SP because SP is a byte .
-		public short Write_Set_PC_Offset(byte value) => PC += value;
 
+		public ushort Read_SP() => (ushort)(SP + m_StackOffset);
 		public void Increment_SP(byte size) //Stack grows down, from 0x01FF to 0x0100
 		{
 			SP += size;
-			
+
 		}
 		public void Decrement_SP(byte size) //Stack grows down, from 0x01FF to 0x0100
 		{
@@ -33,8 +33,9 @@ namespace Core
 		public bool Set_Carry_Flag(bool value) => CarryFlag = value;
 		public bool Set_Zero_Flag(bool value) => ZeroFlag = value;
 
-		public ushort Read_SP() => (ushort)(SP + m_StackOffset);
-		public short Read_PC() => PC;
+		public void Write_PC(ushort value) { PC = value; }
+		public ushort Read_PC() => PC;
+
 		public byte Read_REG_A() => REG_A;
 		public byte Read_REG_X() => REG_X;
 		public byte Read_REG_Y() => REG_Y;

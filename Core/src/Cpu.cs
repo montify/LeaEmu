@@ -59,6 +59,9 @@ namespace Core
 				case CPUOpCode.CLC:
 					m_register.Set_Carry_Flag(false);
 					break;
+				case CPUOpCode.JMP:
+					m_register.Write_PC(instruction.FirstOperand);
+					break;
 				case CPUOpCode.BRK:
 					throw new NotImplementedException();
 				default:

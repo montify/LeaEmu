@@ -2,41 +2,29 @@ using System;
 using System.Collections.Generic;
 using Core;
 
-public class OpCodeLookUpTable
+public class OpCodeTable
 {
-	public Dictionary<string, CPUInstruction> OpCodeLookUp = new Dictionary<string, CPUInstruction>();
+	public Dictionary<byte, CPUInstruction> OpCodeLookUp = new Dictionary<byte, CPUInstruction>();
 
-
-	public List<CPUInstruction> cpuInstructions = new List<CPUInstruction>();
-
-	public OpCodeLookUpTable()
+	public OpCodeTable()
 	{
-		Generate();
-	}
-
-	private void Generate()
-	{
-		OpCodeLookUp.Add("A9", new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate));
-		OpCodeLookUp.Add("85", new CPUInstruction(CPUOpCode.STA, CPUAdressingMode.ZeroPage));
-	}
-
-	private void ComposeInstruction()
-	{
+		GenerateOpCodeLookUp();
 
 	}
 
-	public void GetNextInstruction()
+	private void GenerateOpCodeLookUp()
 	{
+		OpCodeLookUp.Add(0xA9, new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 2));
+		OpCodeLookUp.Add(0x85, new CPUInstruction(CPUOpCode.STA, CPUAdressingMode.ZeroPage, 2));
+		OpCodeLookUp.Add(0xA2, new CPUInstruction(CPUOpCode.LDX, CPUAdressingMode.Immediate, 2));
+		OpCodeLookUp.Add(0x4C, new CPUInstruction(CPUOpCode.JMP, CPUAdressingMode.Immediate, 3));
+		OpCodeLookUp.Add(0xE8, new CPUInstruction(CPUOpCode.INX, CPUAdressingMode.Accumulator, 1));
+	}
 
-		string input = "A9FF85DD";
-
-
-		for (int i = 0; i < input.Length; i++)
-		{
-			var inst = input.Substring(i++, 2);
-			if (OpCodeLookUp.TryGetValue(inst, out var t))
-				System.Console.WriteLine(t.OpCode);
-		}
-
+	public CPUInstruction ConvertHexToCpuInstrucution(byte instruction)
+	{
+		OpCodeLookUp.TryGetValue(instruction, out var cPUInstruction);
+	//
+		return cPUInstruction;
 	}
 }

@@ -81,6 +81,7 @@ namespace Core
 			}
 		}
 
+		
 		public void DebugStackRegion()
 		{
 			DebugMemory(0x0100, 0x01FF, 10);

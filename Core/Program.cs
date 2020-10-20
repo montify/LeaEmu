@@ -27,7 +27,7 @@ namespace Core
 				PHA
 				JMP LOOP
 			*/
-			emulator.LoadProgramm("A9FF48A9FF48A2014C0B00E88A484C0b");
+			emulator.LoadProgramm("A9FF48A9FF48A2014C0B00E88A484C0B00");
 
 			emulator.DebugPrint();
 			emulator.Execute();

@@ -3,7 +3,6 @@ using System;
 namespace Core
 {
 	// http://www.obelisk.me.uk/6502/registers.html
-
 	// https://en.wikibooks.org/wiki/6502_Assembly
 	public class Cpu
 	{
@@ -17,7 +16,6 @@ namespace Core
 			m_memory = memory;
 			m_alu = new Alu(m_register);
 		}
-
 
 		public void Execute(CPUInstruction instruction)
 		{
@@ -117,7 +115,6 @@ namespace Core
 			var stackPtr = m_register.Read_SP();
 			m_memory.Write(stackPtr, m_register.Read_REG_A());
 			m_register.Decrement_SP(0x01);
-
 		}
 
 		private void HandleLDX(CPUInstruction instruction)

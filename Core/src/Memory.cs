@@ -1,5 +1,4 @@
 using System;
-using System.Text;
 
 namespace Core
 {
@@ -52,8 +51,6 @@ namespace Core
 
 			System.Console.WriteLine();
 
-
-
 			//Column Number
 			for (int i = start; i < end + 1; i++)
 			{
@@ -76,11 +73,8 @@ namespace Core
 				System.Console.Write(m_memory[i].ToString("X2") + " ");
 
 				Console.ResetColor();
-
-
 			}
 		}
-
 
 		public void DebugStackRegion()
 		{

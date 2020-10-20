@@ -13,24 +13,22 @@ namespace Core
 		private byte REG_Y;
 		private bool CarryFlag;
 		private bool ZeroFlag;
-
 		private ushort m_StackOffset = 0x0100; //Because Stack starts at 0x0100 we must add this Value to SP because SP is a byte .
 
 		public ushort Read_SP() => (ushort)(SP + m_StackOffset);
 		public void Increment_SP(byte size) //Stack grows down, from 0x01FF to 0x0100
 		{
 			SP += size;
-
 		}
 		public void Decrement_SP(byte size) //Stack grows down, from 0x01FF to 0x0100
 		{
 			SP -= size;
 		}
 
-		public void Write_REG_A(byte value) => REG_A = value;
-		public void Write_REG_X(byte value) => REG_X = value;
-		public void Write_REG_y(byte value) => REG_Y = value;
+		public bool Read_Carry_Flag() => CarryFlag;
 		public bool Set_Carry_Flag(bool value) => CarryFlag = value;
+
+		public bool Read_Zero_Flag() => ZeroFlag;
 		public bool Set_Zero_Flag(bool value) => ZeroFlag = value;
 
 		public void Write_PC(ushort value) { PC = value; }
@@ -39,8 +37,9 @@ namespace Core
 		public byte Read_REG_A() => REG_A;
 		public byte Read_REG_X() => REG_X;
 		public byte Read_REG_Y() => REG_Y;
-		public bool Read_Carry_Flag() => CarryFlag;
-		public bool Read_Zero_Flag() => ZeroFlag;
+		public void Write_REG_A(byte value) => REG_A = value;
+		public void Write_REG_X(byte value) => REG_X = value;
+		public void Write_REG_y(byte value) => REG_Y = value;
 
 		public void Increment_REG_A() => REG_A++;
 		public void Increment_REG_X() => REG_X++;

@@ -23,7 +23,6 @@ namespace Core
 			m_register.Set_Zero_Flag(!Convert.ToBoolean(result));
 
 			m_register.Write_REG_A((byte)result);
-
 		}
 
 		internal void BinarySub(byte left, byte right)
@@ -37,7 +36,6 @@ namespace Core
 			m_register.Set_Zero_Flag(!Convert.ToBoolean(result));
 
 			m_register.Write_REG_A((byte)result);
-
 		}
 
 		private (byte lowerPart, byte upperPart) UShortToTwoBytes(ushort value)

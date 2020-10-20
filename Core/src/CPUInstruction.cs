@@ -1,5 +1,3 @@
-using System;
-
 namespace Core
 {
 	// http://www.obelisk.me.uk/6502/registers.html
@@ -9,7 +7,6 @@ namespace Core
 		public CPUAdressingMode AdressingMode;
 		public byte FirstOperand;
 		public byte SecondOperand;
-
 		public int InstructionLenghtInByte;
 
 		public CPUInstruction(CPUOpCode opCode, CPUAdressingMode adressingMode, int instructionLenghtInByte, byte firstOperand = 0x00, byte secondOperand = 0x00)
@@ -20,7 +17,5 @@ namespace Core
 			SecondOperand = secondOperand;
 			InstructionLenghtInByte = instructionLenghtInByte;
 		}
-
-
 	}
 }

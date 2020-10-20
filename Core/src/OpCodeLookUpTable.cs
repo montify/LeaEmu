@@ -1,4 +1,3 @@
-using System;
 using System.Collections.Generic;
 using Core;
 
@@ -9,7 +8,6 @@ public class OpCodeTable
 	public OpCodeTable()
 	{
 		GenerateOpCodeLookUp();
-
 	}
 
 	private void GenerateOpCodeLookUp()
@@ -26,7 +24,6 @@ public class OpCodeTable
 	public CPUInstruction ConvertHexToCpuInstrucution(byte instruction)
 	{
 		OpCodeLookUp.TryGetValue(instruction, out var cPUInstruction);
-		//
 		return cPUInstruction;
 	}
 }

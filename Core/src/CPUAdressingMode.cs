@@ -1,5 +1,3 @@
-using System;
-
 namespace Core
 {
 	// http://www.obelisk.me.uk/6502/registers.html
@@ -19,5 +17,4 @@ namespace Core
 		IndexedIndirect,
 		IndirectIndexed
 	}
-
 }

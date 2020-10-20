@@ -11,10 +11,10 @@ namespace Core
 		public Memory m_memory { get; private set; }
 		public Alu m_alu { get; private set; }
 
-		public Cpu()
+		public Cpu(Memory memory)
 		{
 			m_register = new Register();
-			m_memory = new Memory(ushort.MaxValue);
+			m_memory = memory;
 			m_alu = new Alu(m_register);
 		}
 

@@ -10,11 +10,13 @@ namespace Core
 	{
 
 		private Cpu m_Cpu;
+		private Memory m_memory;
+
 		private OpCodeTable m_OpCodeLookUpTable = new OpCodeTable();
 		public Emulator()
 		{
-			m_Cpu = new Cpu();
-
+			m_memory = new Memory(ushort.MaxValue);
+			m_Cpu = new Cpu(m_memory);
 		}
 
 		public void LoadProgramm(string byteCode)

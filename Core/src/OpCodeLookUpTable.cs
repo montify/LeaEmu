@@ -17,8 +17,10 @@ public class OpCodeTable
 		OpCodeLookUp.Add(0xA9, new CPUInstruction(CPUOpCode.LDA, CPUAdressingMode.Immediate, 2));
 		OpCodeLookUp.Add(0x85, new CPUInstruction(CPUOpCode.STA, CPUAdressingMode.ZeroPage, 2));
 		OpCodeLookUp.Add(0xA2, new CPUInstruction(CPUOpCode.LDX, CPUAdressingMode.Immediate, 2));
-		OpCodeLookUp.Add(0x4C, new CPUInstruction(CPUOpCode.JMP, CPUAdressingMode.Immediate, 3));
+		OpCodeLookUp.Add(0x4C, new CPUInstruction(CPUOpCode.JMP, CPUAdressingMode.Absolute, 3));
 		OpCodeLookUp.Add(0xE8, new CPUInstruction(CPUOpCode.INX, CPUAdressingMode.Accumulator, 1));
+		OpCodeLookUp.Add(0x8A, new CPUInstruction(CPUOpCode.TXA, CPUAdressingMode.Implicit, 1));
+		OpCodeLookUp.Add(0x48, new CPUInstruction(CPUOpCode.PHA, CPUAdressingMode.Implicit, 1));
 	}
 
 	public CPUInstruction ConvertHexToCpuInstrucution(byte instruction)

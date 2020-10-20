@@ -40,15 +40,24 @@ namespace Core
 				var inst = m_OpCodeLookUpTable.ConvertHexToCpuInstrucution(m_Cpu.m_memory.Read(m_Cpu.m_register.Read_PC()));
 
 				//for dirty demo purpose ;)
-				Thread.Sleep(1000);
-				System.Console.WriteLine("REG_X: " + m_Cpu.m_register.Read_REG_X());
+				Thread.Sleep(100);
 
+				//Fetch firstOperand, dont care if the operation need it or not
 				inst.FirstOperand = m_Cpu.m_memory.Read((ushort)(m_Cpu.m_register.Read_PC() + (inst.InstructionLenghtInByte - 1))); //peek
+
+				//Fetch seconOperand, dont care if the operation need it or not
+				inst.SecondOperand = m_Cpu.m_memory.Read((ushort)(m_Cpu.m_register.Read_PC() + (inst.InstructionLenghtInByte - 2))); //peek
 
 				if (inst.OpCode != CPUOpCode.JMP)
 					m_Cpu.m_register.Write_PC((ushort)(m_Cpu.m_register.Read_PC() + inst.InstructionLenghtInByte));
 
+
+
+				Console.Clear();
+				m_Cpu.m_memory.DebugStackRegion();
 				m_Cpu.Execute(inst);
+
+
 			}
 		}
 

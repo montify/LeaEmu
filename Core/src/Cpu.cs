@@ -38,6 +38,9 @@ namespace Core
 				case CPUOpCode.TAX:
 					HandleTAX(instruction);
 					break;
+				case CPUOpCode.TXA:
+					HandleTXA(instruction);
+					break;
 				case CPUOpCode.INX:
 					HandleINX(instruction);
 					break;
@@ -60,13 +63,18 @@ namespace Core
 					m_register.Set_Carry_Flag(false);
 					break;
 				case CPUOpCode.JMP:
-					m_register.Write_PC(instruction.FirstOperand);
+					m_register.Write_PC((ushort)(instruction.FirstOperand + instruction.SecondOperand));
 					break;
 				case CPUOpCode.BRK:
 					throw new NotImplementedException();
 				default:
 					throw new Exception($"Bad Instruction or not Implemented");
 			}
+		}
+
+		private void HandleTXA(CPUInstruction instruction)
+		{
+			m_register.Write_REG_A(m_register.Read_REG_X());
 		}
 
 		private void HandleSBC(CPUInstruction instruction)
@@ -109,6 +117,7 @@ namespace Core
 			var stackPtr = m_register.Read_SP();
 			m_memory.Write(stackPtr, m_register.Read_REG_A());
 			m_register.Decrement_SP(0x01);
+
 		}
 
 		private void HandleLDX(CPUInstruction instruction)

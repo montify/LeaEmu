@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.IO;
 
 namespace Core
 {
@@ -10,12 +11,25 @@ namespace Core
 
 			Emulator emulator = new Emulator();
 
-			//A2 01 = LDX value 0x01
-			//E8 = Increment LDX
-			//4C 0002 = Jump to 0x02 (NOTE: Jump always 16bit)
-			emulator.LoadProgramm("A201E84C0002");
 
+			/*
+			START
+				LDA#FF
+				PHA
+				LDA #FF
+				PHA
+				LDX #01
+				JMP LOOP
 
+			LOOP
+				INX
+				TXA
+				PHA
+				JMP LOOP
+			*/
+			emulator.LoadProgramm("A9FF48A9FF48A2014C0B00E88A484C0b");
+
+			emulator.DebugPrint();
 			emulator.Execute();
 
 			Console.Read();

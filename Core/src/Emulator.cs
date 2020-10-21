@@ -31,27 +31,29 @@ namespace Core
 
 		public void Execute()
 		{
-			//for (int i = 0; i < 2; i++)
 			while (true)
 			{
-				var inst = m_OpCodeLookUpTable.ConvertHexToCpuInstrucution(m_Cpu.m_memory.Read(m_Cpu.m_register.Read_PC()));
-
-				//for dirty demo purpose ;)
+				// for dirty demo purpose ;)
 				Thread.Sleep(100);
 
-				//Fetch firstOperand, dont care if the operation need it or not
-				inst.FirstOperand = m_Cpu.m_memory.Read((ushort)(m_Cpu.m_register.Read_PC() + (inst.InstructionLenghtInByte - 1))); //peek
+				var instruction = m_OpCodeLookUpTable.GetCpuInstruction(m_Cpu.m_memory.Read(m_Cpu.m_register.Read_PC()));
 
-				//Fetch seconOperand, dont care if the operation need it or not
-				inst.SecondOperand = m_Cpu.m_memory.Read((ushort)(m_Cpu.m_register.Read_PC() + (inst.InstructionLenghtInByte - 2))); //peek
+				// Fetch firstOperand, dont care if any operand is needed for now
+				// For some Ops like PHA, INX,.. no Opernad is needed
+				// For JMP all both are needed because jmp needs a 16bit address
+				instruction.FirstOperand = ReadOperand(instruction.InstructionLenghtInByte - 1);
+				instruction.SecondOperand = ReadOperand(instruction.InstructionLenghtInByte - 2);
 
-				if (inst.OpCode != CPUOpCode.JMP)
-					m_Cpu.m_register.Write_PC((ushort)(m_Cpu.m_register.Read_PC() + inst.InstructionLenghtInByte));
+				m_Cpu.Execute(instruction);
 
 				Console.Clear();
 				m_Cpu.m_memory.DebugStackRegion();
-				m_Cpu.Execute(inst);
 			}
+		}
+
+		private byte ReadOperand(int offsetFromOpCode)
+		{
+			return m_Cpu.m_memory.Read((byte)(m_Cpu.m_register.Read_PC() + offsetFromOpCode)); //peek
 		}
 
 		public void DebugPrint()
@@ -62,7 +64,7 @@ namespace Core
 			System.Console.WriteLine("--------MEMORY---------");
 
 			m_Cpu.m_memory.DebugMemory(0x0, 0xFF, 10);
-			//m_Cpu.m_memory.DebugStackRegion();
+			// m_Cpu.m_memory.DebugStackRegion();
 		}
 	}
 }

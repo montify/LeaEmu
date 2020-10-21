@@ -21,7 +21,7 @@ public class OpCodeTable
 		OpCodeLookUp.Add(0x48, new CPUInstruction(CPUOpCode.PHA, CPUAdressingMode.Implicit, 1));
 	}
 
-	public CPUInstruction ConvertHexToCpuInstrucution(byte instruction)
+	public CPUInstruction GetCpuInstruction(byte instruction)
 	{
 		OpCodeLookUp.TryGetValue(instruction, out var cPUInstruction);
 		return cPUInstruction;

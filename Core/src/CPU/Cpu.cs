@@ -19,6 +19,10 @@ namespace Core
 
 		public void Execute(CPUInstruction instruction)
 		{
+			// Set PC at first, because when we jump, we dont need to advance the PC in the current Location
+			// so it gets overriden in the JMP branch anyway ;)
+			m_register.Write_PC((ushort)(m_register.Read_PC() + instruction.InstructionLenghtInByte));
+
 			switch (instruction.OpCode)
 			{
 				case CPUOpCode.LDA:
@@ -68,6 +72,8 @@ namespace Core
 				default:
 					throw new Exception($"Bad Instruction or not Implemented");
 			}
+
+
 		}
 
 		private void HandleTXA(CPUInstruction instruction)

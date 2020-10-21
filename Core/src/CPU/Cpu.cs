@@ -72,8 +72,6 @@ namespace Core
 				default:
 					throw new Exception($"Bad Instruction or not Implemented");
 			}
-
-
 		}
 
 		private void HandleTXA(CPUInstruction instruction)
@@ -110,17 +108,13 @@ namespace Core
 
 		private void HandlePLA(CPUInstruction instruction)
 		{
-			m_register.Increment_SP(0x01);
-			var stackPtr = m_register.Read_SP();
-			var stackValue = m_memory.Read(stackPtr);
+			var stackValue = PopFromStack();
 			m_register.Write_REG_A(stackValue);
 		}
 
 		private void HandlePHA(CPUInstruction instruction)
 		{
-			var stackPtr = m_register.Read_SP();
-			m_memory.Write(stackPtr, m_register.Read_REG_A());
-			m_register.Decrement_SP(0x01);
+			PushToStack(m_register.Read_REG_A());
 		}
 
 		private void HandleLDX(CPUInstruction instruction)
@@ -275,6 +269,21 @@ namespace Core
 		//	private byte AdressMode_IndexedIndirect(CPUInstruction instruction) => ;
 
 		//	private byte AdressMode_IndirectIndexed(CPUInstruction instruction) => ;
+
+		private void PushToStack(byte value)
+		{
+			var stackPtr = m_register.Read_SP();
+			m_memory.Write(stackPtr, value);
+			m_register.Decrement_SP(0x01);
+		}
+		
+		private byte PopFromStack()
+		{
+			m_register.Increment_SP(0x01);
+			var stackPtr = m_register.Read_SP();
+			var stackValue = m_memory.Read(stackPtr);
+			return stackValue;
+		}
 
 	}
 }

@@ -1,6 +1,7 @@
 using System;
 using System.Globalization;
 using System.Threading;
+using System.Threading.Tasks;
 
 namespace Core
 {
@@ -29,12 +30,12 @@ namespace Core
 			m_Cpu.m_register.Write_PC(0x00);
 		}
 
-		public void Execute()
+		public async void Execute()
 		{
 			while (true)
 			{
 				// for dirty demo purpose ;)
-				Thread.Sleep(100);
+				await Task.Delay(1000);
 
 				var instruction = m_OpCodeLookUpTable.GetCpuInstruction(m_Cpu.m_memory.Read(m_Cpu.m_register.Read_PC()));
 
@@ -45,9 +46,10 @@ namespace Core
 				instruction.SecondOperand = ReadOperand(instruction.InstructionLenghtInByte - 2);
 
 				m_Cpu.Execute(instruction);
+				
+				DebugPrint();
+			
 
-				Console.Clear();
-				m_Cpu.m_memory.DebugStackRegion();
 			}
 		}
 
@@ -58,12 +60,14 @@ namespace Core
 
 		public void DebugPrint()
 		{
+			Console.Clear();
 			System.Console.WriteLine("--------REGISTERS---------");
 			m_Cpu.m_register.PrintRegister();
 			System.Console.WriteLine();
 			System.Console.WriteLine("--------MEMORY---------");
 
-			m_Cpu.m_memory.DebugMemory(0x0, 0xFF, 10);
+			m_Cpu.m_memory.DebugMemory(0x00, 0xFF);
+
 			// m_Cpu.m_memory.DebugStackRegion();
 		}
 	}

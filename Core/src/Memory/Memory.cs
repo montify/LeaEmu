@@ -1,4 +1,5 @@
 using System;
+using System.Text;
 
 namespace Core
 {
@@ -35,50 +36,36 @@ namespace Core
 			return m_memory[adress];
 		}
 
-		public void DebugMemory(ushort start, ushort end, int lineBreak)
+		public void DebugMemory(ushort start, ushort end)
 		{
 			if (start < 0 && end > m_memory.Length)
 				throw new OutOfMemoryException("");
 
-			// Row Number
-			for (int i = 0; i < lineBreak; i++)
-			{
-				if (i == 0)
-					Console.Write("       ");
+			StringBuilder stringbuilder = new StringBuilder();
 
-				Console.Write(i.ToString("X2") + "   ");
-			}
+			stringbuilder.Append($@"  {0}	 {1}	 {2}	 {3}	 {4}	 {5}	 {6}	 {7}	 {8}	 {9}");
+			stringbuilder.Append($"\n");
 
-			System.Console.WriteLine();
 
-			//Column Number
+			int count = 0;
 			for (int i = start; i < end + 1; i++)
 			{
-				if (i > start && i % lineBreak == 0)
-					System.Console.Write('\n');
+				count++;
 
-				if (i % lineBreak == 0)
-					if (i < 100)
-						System.Console.Write(i.ToString("X2") + ":   ");
-					else
-						System.Console.Write(i.ToString("X2") + ":  ");
+				stringbuilder.Append("0x");
+				stringbuilder.Append(m_memory[i].ToString("X2"));
+				stringbuilder.Append("	");
 
-				if (i >= 0x0100 && i <= 0x01FF) //Stack Region
-					Console.ForegroundColor = ConsoleColor.Blue;
-
-				if (m_memory[i] != 0x0000) //Color every byte that are not 0x00
-					Console.ForegroundColor = ConsoleColor.Green;
-
-				System.Console.Write("0x");
-				System.Console.Write(m_memory[i].ToString("X2") + " ");
-
-				Console.ResetColor();
+				if (count % 10 == 0)
+					stringbuilder.Append("\n");
 			}
+
+			System.Console.WriteLine(stringbuilder.ToString());
 		}
 
 		public void DebugStackRegion()
 		{
-			DebugMemory(0x0100, 0x01FF, 10);
+			DebugMemory(0x0100, 0x01FF);
 		}
 	}
 }

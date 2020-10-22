@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace Core
+namespace MemoryLib
 {
 	// http://www.obelisk.me.uk/6502/architecture.html
 	public class Memory

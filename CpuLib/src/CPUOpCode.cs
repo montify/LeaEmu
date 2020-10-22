@@ -1,4 +1,4 @@
-namespace Core
+namespace CpuLib
 {
 	// http://www.obelisk.me.uk/6502/registers.html
 	public enum CPUOpCode

@@ -1,7 +1,7 @@
 using System;
 using System.Text;
 
-namespace Core
+namespace CpuLib
 {
 	// http://www.obelisk.me.uk/6502/registers.html
 	public class Register

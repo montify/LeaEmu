@@ -2,6 +2,8 @@ using System;
 using System.Globalization;
 using System.Threading;
 using System.Threading.Tasks;
+using CpuLib;
+using MemoryLib;
 
 namespace Core
 {
@@ -46,9 +48,8 @@ namespace Core
 				instruction.SecondOperand = ReadOperand(instruction.InstructionLenghtInByte - 2);
 
 				m_Cpu.Execute(instruction);
-				
+
 				DebugPrint();
-			
 
 			}
 		}
@@ -66,9 +67,9 @@ namespace Core
 			System.Console.WriteLine();
 			System.Console.WriteLine("--------MEMORY---------");
 
-			m_Cpu.m_memory.DebugMemory(0x00, 0xFF);
+			//m_Cpu.m_memory.DebugMemory(0x00, 0xFF);
 
-			// m_Cpu.m_memory.DebugStackRegion();
+			m_Cpu.m_memory.DebugStackRegion();
 		}
 	}
 }

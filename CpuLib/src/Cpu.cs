@@ -1,6 +1,7 @@
 using System;
+using MemoryLib;
 
-namespace Core
+namespace CpuLib
 {
 	// http://www.obelisk.me.uk/6502/registers.html
 	// https://en.wikibooks.org/wiki/6502_Assembly

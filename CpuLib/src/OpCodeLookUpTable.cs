@@ -1,6 +1,5 @@
 using System.Collections.Generic;
-using Core;
-
+using CpuLib;
 public class OpCodeTable
 {
 	public Dictionary<byte, CPUInstruction> OpCodeLookUp = new Dictionary<byte, CPUInstruction>();

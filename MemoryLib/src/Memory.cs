@@ -36,14 +36,14 @@ namespace MemoryLib
 			return m_memory[adress];
 		}
 
-		public void DebugMemory(ushort start, ushort end)
+		public StringBuilder DebugMemory(ushort start, ushort end)
 		{
 			if (start < 0 && end > m_memory.Length)
 				throw new OutOfMemoryException("");
 
 			StringBuilder stringbuilder = new StringBuilder();
 
-			stringbuilder.Append($@"  {0}	 {1}	 {2}	 {3}	 {4}	 {5}	 {6}	 {7}	 {8}	 {9}");
+			stringbuilder.Append($@"  {0}	  {1}	   {2}	    {3}	   {4}	   {5}	   {6}	  {7}	   {8}	   {9}");
 			stringbuilder.Append($"\n");
 
 
@@ -60,12 +60,14 @@ namespace MemoryLib
 					stringbuilder.Append("\n");
 			}
 
-			System.Console.WriteLine(stringbuilder.ToString());
+			//System.Console.WriteLine(stringbuilder.ToString());
+
+			return stringbuilder;
 		}
 
-		public void DebugStackRegion()
+		public StringBuilder DebugStackRegion()
 		{
-			DebugMemory(0x0100, 0x01FF);
+			return DebugMemory(0x0100, 0x01FF);
 		}
 	}
 }

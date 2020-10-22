@@ -16,8 +16,8 @@ namespace VideoLib
 		public D3D11VideoDriver()
 		{
 			m_RenderForm = new RenderForm("Emulator");
-			m_RenderForm.Width = 800;
-			m_RenderForm.Height = 600;
+			m_RenderForm.Width = 1280;
+			m_RenderForm.Height = 720;
 			m_GraphicsDevice = new GraphicsDevice(m_RenderForm);
 			m_ImGuiRenderer = new ImGuiRenderer(m_RenderForm, m_GraphicsDevice);
 		}
@@ -38,8 +38,10 @@ namespace VideoLib
 
 		public void Dispose()
 		{
+			m_ImGuiRenderer.Dispose();
 			m_GraphicsDevice.Dispose();
 			Utilities.Dispose(ref m_RenderForm);
+
 		}
 	}
 }

@@ -1,5 +1,6 @@
 using System;
 using System.Globalization;
+using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
 using CpuLib;
@@ -40,6 +41,7 @@ namespace EmulatorLib
 
 		public void Execute()
 		{
+			int cycles = 0;
 			m_Video.Run(() =>
 			{
 
@@ -57,9 +59,18 @@ namespace EmulatorLib
 				ImGuiNET.ImGui.Text("CarryFlag: " + m_Cpu.m_register.Read_Carry_Flag());
 				ImGuiNET.ImGui.Text("ZeroFlag: " + m_Cpu.m_register.Read_Zero_Flag());
 				ImGuiNET.ImGui.Text("NextOp: " + instruction.OpCode + " |Value: " + instruction.FirstOperand + "," + instruction.SecondOperand);
+				ImGuiNET.ImGui.Text("CyclesCount: " + cycles);
+				StringBuilder sb = new StringBuilder();
+
+
+				ImGuiNET.ImGui.Text(m_memory.DebugStackRegion().ToString());
 
 				if (ImGuiNET.ImGui.Button("Next Step"))
+				{
+					cycles++;
 					m_Cpu.Execute(instruction);
+				}
+
 			});
 
 			m_Video.Dispose();

@@ -71,7 +71,7 @@ namespace VideoLib
 
 			ImGui.GetIO().Fonts.AddFontDefault();
 			ImGui.GetIO().BackendFlags |= ImGuiBackendFlags.RendererHasVtxOffset;
-			ImGui.GetIO().ConfigFlags |= ImGuiConfigFlags.DockingEnable ;
+			ImGui.GetIO().ConfigFlags |= ImGuiConfigFlags.DockingEnable;
 
 			ImGui.GetIO().ConfigDockingWithShift = false;
 			RebuildFontAtlas();
@@ -100,6 +100,12 @@ namespace VideoLib
 			{
 				if (args.Button == System.Windows.Forms.MouseButtons.Left)
 					io.MouseDown[0] = false;
+			};
+			
+			m_RenderForm.MouseWheel += (sender, args) =>
+			{
+
+				io.MouseWheel = args.Delta;
 			};
 
 			m_RenderForm.KeyDown += (sender, args) =>

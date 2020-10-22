@@ -65,7 +65,6 @@ namespace EmulatorLib
 				ImGuiNET.ImGui.Begin("Stack");
 				ImGuiNET.ImGui.Text(m_memory.DebugStackRegion().ToString());
 				ImGuiNET.ImGui.End();
-
 				ImGuiNET.ImGui.Begin("Memory");
 				ImGuiNET.ImGui.Text(m_memory.DebugMemory(0x0000, 0x00FF).ToString());
 				ImGuiNET.ImGui.End();

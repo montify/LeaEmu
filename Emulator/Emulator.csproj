@@ -3,6 +3,7 @@
   <ItemGroup>
     <ProjectReference Include="..\CpuLib\CpuLib.csproj" />
     <ProjectReference Include="..\MemoryLib\MemoryLib.csproj" />
+     <ProjectReference Include="..\VideoLib\VideoLib.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

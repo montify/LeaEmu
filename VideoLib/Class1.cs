@@ -2,7 +2,7 @@
 
 namespace VideoLib
 {
-    public class Class1
+    public class TestVid
     {
     }
 }

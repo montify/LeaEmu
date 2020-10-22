@@ -1,4 +1,3 @@
-
 using System;
 using SharpDX;
 using SharpDX.Direct3D;
@@ -12,12 +11,12 @@ namespace VideoLib
 	using Device = SharpDX.Direct3D11.Device;
 	public class GraphicsDevice : IDisposable
 	{
+		public Device GetNativeDevice => m_Device;
 		private readonly RenderForm m_RenderForm;
 		private Device m_Device;
 		private SwapChain m_Swapchain;
 		private RenderTargetView m_RenderView;
 		private Texture2D m_BackBuffer;
-		public Device GetDevice { get; private set; }
 
 		public GraphicsDevice(RenderForm renderForm)
 		{
@@ -30,6 +29,32 @@ namespace VideoLib
 			m_Device.ImmediateContext.ClearRenderTargetView(m_RenderView, Color.Red);
 		}
 
+		public void SetTopology(PrimitiveTopology topology)
+		{
+			m_Device.ImmediateContext.InputAssembler.PrimitiveTopology = topology;
+		}
+		internal void SetInputLayout(InputLayout inputLayout)
+		{
+			m_Device.ImmediateContext.InputAssembler.InputLayout = inputLayout;
+		}
+
+		public void SetVertexBuffer(VertexBuffer vertexBuffer, int offset = 0)
+		{
+			m_Device.ImmediateContext.InputAssembler.SetVertexBuffers(0, new VertexBufferBinding(vertexBuffer.NativeBuffer, vertexBuffer.Stride, offset));
+		}
+
+		public void SetIndexBuffer(IndexBuffer indexBuffer, int offset = 0)
+		{
+			m_Device.ImmediateContext.InputAssembler.SetIndexBuffer(indexBuffer.NativeBuffer, indexBuffer.format, offset);
+		}
+		public void DrawIndexed(int count, int startIndexLocation, int baseVertexLocation)
+		{
+			if (count <= 0)
+				throw new ArgumentException("Count cant be 0");
+
+			m_Device.ImmediateContext.DrawIndexed(count, startIndexLocation, baseVertexLocation);
+
+		}
 		public void Present()
 		{
 			m_Swapchain.Present(0, PresentFlags.None);
@@ -49,6 +74,7 @@ namespace VideoLib
 				SwapEffect = SwapEffect.Discard,
 				Usage = Usage.RenderTargetOutput
 			};
+
 			Device.CreateWithSwapChain(DriverType.Hardware, DeviceCreationFlags.None, desc, out m_Device, out m_Swapchain);
 
 			m_BackBuffer = Texture2D.FromSwapChain<Texture2D>(m_Swapchain, 0);

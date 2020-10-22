@@ -14,14 +14,15 @@ namespace EmulatorLib
 		private Memory m_memory;
 		private OpCodeTable m_OpCodeLookUpTable = new OpCodeTable();
 
-		D3D11VideoDevice m_Video;
-
+		D3D11VideoDriver m_Video;
+		
 		public Emulator()
 		{
 			m_memory = new Memory(ushort.MaxValue);
 			m_Cpu = new Cpu(m_memory);
-			m_Video = new D3D11VideoDevice();
-
+			m_Video = new D3D11VideoDriver();
+		
+		
 		}
 
 		public void LoadProgramm(string byteCode)

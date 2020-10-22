@@ -45,37 +45,5 @@ namespace CpuLib
 		public void Increment_REG_X() => REG_X++;
 		public void Increment_REG_Y() => REG_Y++;
 
-		public void PrintRegister()
-		{
-			var sb = new StringBuilder();
-
-			Console.Write("A: 		");
-			System.Console.Write(REG_A.ToString("x"));
-			System.Console.WriteLine();
-
-			Console.Write("X: 		");
-			System.Console.Write(REG_X.ToString("x"));
-			System.Console.WriteLine();
-
-			Console.Write("Y: 		");
-			System.Console.Write(REG_Y.ToString("x"));
-			System.Console.WriteLine();
-
-			Console.Write("PC: 		");
-			System.Console.Write(PC.ToString("x"));
-			System.Console.WriteLine();
-
-			Console.Write("SP: 		");
-			System.Console.Write(SP.ToString("x"));
-			System.Console.WriteLine();
-
-			Console.Write("CarryFLAG: 	");
-			System.Console.Write(CarryFlag);
-			System.Console.WriteLine();
-
-			Console.Write("ZeroFLAG: 	");
-			System.Console.Write(ZeroFlag);
-			System.Console.WriteLine();
-		}
 	}
 }

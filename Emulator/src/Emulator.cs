@@ -6,7 +6,7 @@ using CpuLib;
 using MemoryLib;
 using VideoLib;
 
-namespace Core
+namespace EmulatorLib
 {
 	public class Emulator
 	{

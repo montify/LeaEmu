@@ -3,9 +3,7 @@ Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio 15
 VisualStudioVersion = 15.0.26124.0
 MinimumVisualStudioVersion = 15.0.26124.0
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Core", "Core\Core.csproj", "{6DF83D07-3204-4AC1-8F6A-922A46F4944E}"
-EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "LeaEmu.Tests", "LeaEmu.Tests\LeaEmu.Tests.csproj", "{30409BFB-A1A6-4AC8-BE14-89318275E43D}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Emulator", "Emulator\Emulator.csproj", "{6DF83D07-3204-4AC1-8F6A-922A46F4944E}"
 EndProject
 Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "CpuLib", "CpuLib\CpuLib.csproj", "{019B58FD-977B-4A3B-B15F-5BB7A48E3CDE}"
 EndProject

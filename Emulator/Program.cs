@@ -1,13 +1,13 @@
 ﻿using System;
 
-namespace Core
+namespace EmulatorLib
 {
 	class Program
 	{
 		static void Main(string[] args)
 		{
 
-			Emulator emulator = new Emulator();
+			var emulator = new Emulator();
 
 			/*
 						START

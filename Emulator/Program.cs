@@ -27,7 +27,6 @@ namespace EmulatorLib
 
 			emulator.LoadProgramm("A9FF48A9FF48A2014C0B00E88A484C0B00");
 			emulator.Execute();
-			Console.Read();
 		}
 	}
 }

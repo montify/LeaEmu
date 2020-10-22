@@ -14,13 +14,13 @@ namespace EmulatorLib
 		private Memory m_memory;
 		private OpCodeTable m_OpCodeLookUpTable = new OpCodeTable();
 
-		TestVid m_Video;
+		D3D11VideoDevice m_Video;
 
 		public Emulator()
 		{
 			m_memory = new Memory(ushort.MaxValue);
 			m_Cpu = new Cpu(m_memory);
-			m_Video = new TestVid(m_memory, m_Cpu);
+			m_Video = new D3D11VideoDevice();
 
 		}
 
@@ -37,13 +37,10 @@ namespace EmulatorLib
 			m_Cpu.m_register.Write_PC(0x00);
 		}
 
-		public async void Execute()
+		public void Execute()
 		{
-			while (true)
+			m_Video.Run(() =>
 			{
-				// for dirty demo purpose ;)
-				await Task.Delay(1000);
-
 				var instruction = m_OpCodeLookUpTable.GetCpuInstruction(m_Cpu.m_memory.Read(m_Cpu.m_register.Read_PC()));
 
 				// Fetch firstOperand, dont care if any operand is needed for now
@@ -53,10 +50,9 @@ namespace EmulatorLib
 				instruction.SecondOperand = ReadOperand(instruction.InstructionLenghtInByte - 2);
 
 				m_Cpu.Execute(instruction);
+			});
 
-				m_Video.DebugPrint();
-
-			}
+			m_Video.Dispose();
 		}
 
 		private byte ReadOperand(int offsetFromOpCode)

@@ -8,11 +8,13 @@ namespace MemoryLib
 	{
 		private byte[] m_memory;
 		private ushort m_Size;
+		StringBuilder stringbuilder;
 
 		public Memory(ushort size)
 		{
 			m_memory = new byte[size];
 			m_Size = size;
+			stringbuilder = new StringBuilder();
 		}
 
 		public void ClearAll()
@@ -41,7 +43,7 @@ namespace MemoryLib
 			if (start < 0 && end > m_memory.Length)
 				throw new OutOfMemoryException("");
 
-			StringBuilder stringbuilder = new StringBuilder();
+			stringbuilder.Clear();
 
 			stringbuilder.Append($@"  {0}	  {1}	   {2}	    {3}	   {4}	   {5}	   {6}	  {7}	   {8}	   {9}");
 			stringbuilder.Append($"\n");
@@ -59,8 +61,6 @@ namespace MemoryLib
 				if (count % 10 == 0)
 					stringbuilder.Append("\n");
 			}
-
-			//System.Console.WriteLine(stringbuilder.ToString());
 
 			return stringbuilder;
 		}

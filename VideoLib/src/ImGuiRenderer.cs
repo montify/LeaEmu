@@ -31,8 +31,6 @@ namespace VideoLib
 
 		private byte[] _indexData;
 
-		private bool m_IsMouseLeftDown;
-
 		private ShaderResourceView srv;
 
 		public ImGuiRenderer(RenderForm renderForm, GraphicsDevice graphicsDevice)

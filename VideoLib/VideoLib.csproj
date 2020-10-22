@@ -2,6 +2,7 @@
 
 <ItemGroup>
     <ProjectReference Include="..\MemoryLib\MemoryLib.csproj" />
+      <ProjectReference Include="..\CpuLib\CpuLib.csproj" />
   </ItemGroup>
 
   <PropertyGroup>

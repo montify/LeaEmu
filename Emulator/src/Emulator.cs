@@ -14,10 +14,14 @@ namespace Core
 		private Memory m_memory;
 		private OpCodeTable m_OpCodeLookUpTable = new OpCodeTable();
 
+		TestVid m_Video;
+
 		public Emulator()
 		{
 			m_memory = new Memory(ushort.MaxValue);
 			m_Cpu = new Cpu(m_memory);
+			m_Video = new TestVid(m_memory, m_Cpu);
+
 		}
 
 		public void LoadProgramm(string byteCode)
@@ -50,7 +54,7 @@ namespace Core
 
 				m_Cpu.Execute(instruction);
 
-				DebugPrint();
+				m_Video.DebugPrint();
 
 			}
 		}
@@ -58,19 +62,6 @@ namespace Core
 		private byte ReadOperand(int offsetFromOpCode)
 		{
 			return m_Cpu.m_memory.Read((byte)(m_Cpu.m_register.Read_PC() + offsetFromOpCode)); //peek
-		}
-
-		public void DebugPrint()
-		{
-			Console.Clear();
-			System.Console.WriteLine("--------REGISTERS---------");
-			m_Cpu.m_register.PrintRegister();
-			System.Console.WriteLine();
-			System.Console.WriteLine("--------MEMORY---------");
-
-			//m_Cpu.m_memory.DebugMemory(0x00, 0xFF);
-
-			m_Cpu.m_memory.DebugStackRegion();
 		}
 	}
 }

@@ -54,7 +54,7 @@ namespace EmulatorLib
 				instruction.SecondOperand = ReadOperand(instruction.InstructionLenghtInByte - 2);
 
 				ImguiDebug(instruction, cycles);
-
+			
 				if (ImGuiNET.ImGui.Button("Next Step"))
 				{
 					cycles++;
@@ -77,12 +77,13 @@ namespace EmulatorLib
 			ImGuiNET.ImGui.Text("TotalCycles: " + cycles);
 
 			ImGuiNET.ImGui.Begin("Stack 0x0100 - 0x01FF");
-			ImGuiNET.ImGui.Text(m_memory.DebugStackRegion().ToString());
+			ImGuiNET.ImGui.Text(m_memory.GetStackRegionAsString());
+			ImGuiNET.ImGui.End();
+	
+			ImGuiNET.ImGui.Begin("Memory");
+			ImGuiNET.ImGui.Text(m_memory.GetMemoryAsString(0x0000, 0x00FF));
 			ImGuiNET.ImGui.End();
 
-			ImGuiNET.ImGui.Begin("Memory");
-			ImGuiNET.ImGui.Text(m_memory.DebugMemory(0x0000, 0x00FF).ToString());
-			ImGuiNET.ImGui.End();
 		}
 
 		private byte ReadOperand(int offsetFromOpCode)

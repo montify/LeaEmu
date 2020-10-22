@@ -19,7 +19,6 @@ namespace VideoLib
 		Shader effect;
 		private IntPtr? _fontTextureId;
 		private Dictionary<IntPtr, ShaderResourceView> _loadedTextures;
-		private int _textureId;
 		int _indexBufferSize;
 		private SamplerState nativeSamplerState;
 		//  LeaSamplerState sampler;
@@ -166,7 +165,7 @@ namespace VideoLib
 
 		public virtual IntPtr BindTexture(ShaderResourceView texture)
 		{
-			var id = new IntPtr(_textureId++);
+			var id = texture.NativePointer;
 
 			_loadedTextures.Add(id, texture);
 
@@ -290,7 +289,7 @@ namespace VideoLib
 						throw new InvalidOperationException(
 							$"Could not find a texture with id '{drawCmd.TextureId}', please check your bindings");
 					}
-
+			
 					var io = ImGui.GetIO();
 
 					io.DisplaySize =

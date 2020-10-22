@@ -45,7 +45,7 @@ namespace MemoryLib
 
 			stringbuilder.Clear();
 
-			stringbuilder.Append($@"  {0}	  {1}	   {2}	    {3}	   {4}	   {5}	   {6}	  {7}	   {8}	   {9}");
+			stringbuilder.Append($@"       {0}	   {1}	   {2}	   {3}	   {4}	   {5}	   {6}	  {7}	   {8}	   {9}");
 			stringbuilder.Append($"\n");
 
 
@@ -54,12 +54,26 @@ namespace MemoryLib
 			{
 				count++;
 
+				if (count == 1)
+				{
+					stringbuilder.Append(i.ToString("X4"));
+					stringbuilder.Append(": ");
+				}
 				stringbuilder.Append("0x");
 				stringbuilder.Append(m_memory[i].ToString("X2"));
 				stringbuilder.Append("	");
 
 				if (count % 10 == 0)
+				{
 					stringbuilder.Append("\n");
+
+				}
+
+				if (count % 10 == 0)
+				{
+					stringbuilder.Append(i.ToString("X4"));
+					stringbuilder.Append(": ");
+				}
 			}
 
 			return stringbuilder;

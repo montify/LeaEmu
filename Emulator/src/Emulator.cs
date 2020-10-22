@@ -53,22 +53,7 @@ namespace EmulatorLib
 				instruction.FirstOperand = ReadOperand(instruction.InstructionLenghtInByte - 1);
 				instruction.SecondOperand = ReadOperand(instruction.InstructionLenghtInByte - 2);
 
-				ImGuiNET.ImGui.Text("REG_A: " + m_Cpu.m_register.Read_REG_A().ToString("X2"));
-				ImGuiNET.ImGui.Text("REG_X: " + m_Cpu.m_register.Read_REG_X().ToString("X2"));
-				ImGuiNET.ImGui.Text("REG_Y: " + m_Cpu.m_register.Read_REG_Y().ToString("X2"));
-				ImGuiNET.ImGui.Text("CarryFlag: " + m_Cpu.m_register.Read_Carry_Flag());
-				ImGuiNET.ImGui.Text("ZeroFlag: " + m_Cpu.m_register.Read_Zero_Flag());
-				ImGuiNET.ImGui.Text("NextOp: " + instruction.OpCode + " |Value: " + instruction.FirstOperand.ToString("X2") + "," + instruction.SecondOperand.ToString("X2"));
-				ImGuiNET.ImGui.Text("PC: " + m_Cpu.m_register.Read_PC().ToString("X2"));
-				ImGuiNET.ImGui.Text("TotalCycles: " + cycles);
-				
-				ImGuiNET.ImGui.Begin("Stack");
-				ImGuiNET.ImGui.Text(m_memory.DebugStackRegion().ToString());
-				ImGuiNET.ImGui.End();
-				ImGuiNET.ImGui.Begin("Memory");
-				ImGuiNET.ImGui.Text(m_memory.DebugMemory(0x0000, 0x00FF).ToString());
-				ImGuiNET.ImGui.End();
-
+				ImguiDebug(instruction, cycles);
 
 				if (ImGuiNET.ImGui.Button("Next Step"))
 				{
@@ -80,6 +65,25 @@ namespace EmulatorLib
 			m_Video.Dispose();
 		}
 
+		private void ImguiDebug(CPUInstruction instruction, int cycles)
+		{
+			ImGuiNET.ImGui.Text("REG_A: " + m_Cpu.m_register.Read_REG_A().ToString("X2"));
+			ImGuiNET.ImGui.Text("REG_X: " + m_Cpu.m_register.Read_REG_X().ToString("X2"));
+			ImGuiNET.ImGui.Text("REG_Y: " + m_Cpu.m_register.Read_REG_Y().ToString("X2"));
+			ImGuiNET.ImGui.Text("CarryFlag: " + m_Cpu.m_register.Read_Carry_Flag());
+			ImGuiNET.ImGui.Text("ZeroFlag: " + m_Cpu.m_register.Read_Zero_Flag());
+			ImGuiNET.ImGui.Text("NextOp: " + instruction.OpCode + " |Value: " + instruction.FirstOperand.ToString("X2") + "," + instruction.SecondOperand.ToString("X2"));
+			ImGuiNET.ImGui.Text("PC: " + m_Cpu.m_register.Read_PC().ToString("X2"));
+			ImGuiNET.ImGui.Text("TotalCycles: " + cycles);
+
+			ImGuiNET.ImGui.Begin("Stack 0x0100 - 0x01FF");
+			ImGuiNET.ImGui.Text(m_memory.DebugStackRegion().ToString());
+			ImGuiNET.ImGui.End();
+
+			ImGuiNET.ImGui.Begin("Memory");
+			ImGuiNET.ImGui.Text(m_memory.DebugMemory(0x0000, 0x00FF).ToString());
+			ImGuiNET.ImGui.End();
+		}
 
 		private byte ReadOperand(int offsetFromOpCode)
 		{

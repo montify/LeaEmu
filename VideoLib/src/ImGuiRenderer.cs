@@ -31,6 +31,7 @@ namespace VideoLib
 
 		private byte[] _indexData;
 
+		private bool m_IsMouseLeftDown;
 
 		private ShaderResourceView srv;
 
@@ -72,68 +73,48 @@ namespace VideoLib
 
 			ImGui.GetIO().Fonts.AddFontDefault();
 			ImGui.GetIO().BackendFlags |= ImGuiBackendFlags.RendererHasVtxOffset;
-			SetupInput();
+			ImGui.GetIO().ConfigFlags |= ImGuiConfigFlags.DockingEnable ;
+
+			ImGui.GetIO().ConfigDockingWithShift = false;
 			RebuildFontAtlas();
 			ImGui.NewFrame();
 
+			InputCallbacks();
+
 		}
 
-		void SetupInput()
+		protected virtual void InputCallbacks()
 		{
-			/*	var io = ImGui.GetIO();
+			var io = ImGui.GetIO();
 
-				_keys.Add(io.KeyMap[(int)ImGuiKey.Tab] = (int)Keys.Tab);
-				_keys.Add(io.KeyMap[(int)ImGuiKey.LeftArrow] = (int)Keys.Left);
-				_keys.Add(io.KeyMap[(int)ImGuiKey.RightArrow] = (int)Keys.Right);
-				_keys.Add(io.KeyMap[(int)ImGuiKey.UpArrow] = (int)Keys.Up);
-				_keys.Add(io.KeyMap[(int)ImGuiKey.DownArrow] = (int)Keys.Down);
-				_keys.Add(io.KeyMap[(int)ImGuiKey.PageUp] = (int)Keys.PageUp);
-				_keys.Add(io.KeyMap[(int)ImGuiKey.PageDown] = (int)Keys.PageDown);
-				_keys.Add(io.KeyMap[(int)ImGuiKey.Home] = (int)Keys.Home);
-				_keys.Add(io.KeyMap[(int)ImGuiKey.End] = (int)Keys.End);
-				_keys.Add(io.KeyMap[(int)ImGuiKey.Delete] = (int)Keys.Delete);
-				_keys.Add(io.KeyMap[(int)ImGuiKey.Backspace] = (int)Keys.Back);
-				_keys.Add(io.KeyMap[(int)ImGuiKey.Enter] = (int)Keys.Enter);
-				_keys.Add(io.KeyMap[(int)ImGuiKey.Escape] = (int)Keys.Escape);
-				_keys.Add(io.KeyMap[(int)ImGuiKey.A] = (int)Keys.A);
-				_keys.Add(io.KeyMap[(int)ImGuiKey.C] = (int)Keys.C);
-				_keys.Add(io.KeyMap[(int)ImGuiKey.V] = (int)Keys.V);
-				_keys.Add(io.KeyMap[(int)ImGuiKey.X] = (int)Keys.X);
-				_keys.Add(io.KeyMap[(int)ImGuiKey.Y] = (int)Keys.Y);
-				_keys.Add(io.KeyMap[(int)ImGuiKey.Z] = (int)Keys.Z);
+			m_RenderForm.MouseMove += (sender, args) =>
+		   	{
+				   io.MousePos = new System.Numerics.Vector2(args.X, args.Y);
+		   	};
 
-	*/
+			m_RenderForm.MouseDown += (sender, args) =>
+			{
+				if (args.Button == System.Windows.Forms.MouseButtons.Left)
+					io.MouseDown[0] = true;
+			};
 
-			//InputManager.Foam.KeyDown += (sender, args) =>
-			//{
+			m_RenderForm.MouseUp += (sender, args) =>
+			{
+				if (args.Button == System.Windows.Forms.MouseButtons.Left)
+					io.MouseDown[0] = false;
+			};
 
-			//    io.KeysDown[(int)args.KeyCode] = true;
-			//    io.AddInputCharacter((uint)args.KeyCode);
-			//};
-			//InputManager.Foam.KeyUp += (sender, args) =>
-			//{
+			m_RenderForm.KeyDown += (sender, args) =>
+			{
+				io.KeysDown[(int)args.KeyCode] = true;
+				io.AddInputCharacter((uint)args.KeyCode);
+			};
 
-			//    io.KeysDown[(int)args.KeyCode] = false;
-
-			//    // io.AddInputCharacter((uint)args.KeyCode);
-
-			//};
-
-
-
-			//ImGui.GetIO().Fonts.AddFontDefault();
-		}
-
-		protected virtual void UpdateInput()
-		{
-		/*	var io = ImGui.GetIO();
-
-			var mouse = InputManager.RawMousePosition;
-
-			io.MousePos = new System.Numerics.Vector2(mouse.X, mouse.Y);
-
-			io.MouseDown[0] = InputManager.GetMouse(MouseButtons.Left);
-*/
+			m_RenderForm.KeyUp += (sender, args) =>
+			{
+				io.KeysDown[(int)args.KeyCode] = false;
+				// io.AddInputCharacter((uint)args.KeyCode);
+			};
 		}
 
 		public unsafe void RebuildFontAtlas()
@@ -204,9 +185,12 @@ namespace VideoLib
 			var io = ImGui.GetIO();
 			io.DisplaySize = new System.Numerics.Vector2(m_RenderForm.ClientSize.Width, m_RenderForm.ClientSize.Height);
 
+
+
+
 			io.DisplayFramebufferScale = System.Numerics.Vector2.One;
 
-			UpdateInput();
+			//UpdateInput();
 
 			ImGui.NewFrame();
 		}
@@ -232,9 +216,7 @@ namespace VideoLib
 		private unsafe void UpdateBuffers(ImDrawDataPtr drawData)
 		{
 			if (drawData.TotalVtxCount == 0)
-			{
 				return;
-			}
 
 			if (drawData.TotalVtxCount > _vertexBufferSize)
 			{
@@ -282,6 +264,9 @@ namespace VideoLib
 
 		private unsafe void RenderCommandLists1(ImDrawDataPtr drawData)
 		{
+			if (drawData.TotalVtxCount == 0)
+				return;
+
 			graphicsDevice.SetVertexBuffer(vertexBuffer);
 			graphicsDevice.SetIndexBuffer(indexBuffer);
 

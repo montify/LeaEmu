@@ -2,6 +2,7 @@ using System;
 using ImGuiNET;
 using SharpDX;
 using SharpDX.Windows;
+using MemoryLib;
 
 namespace VideoLib
 {
@@ -15,6 +16,8 @@ namespace VideoLib
 		public D3D11VideoDriver()
 		{
 			m_RenderForm = new RenderForm("Emulator");
+			m_RenderForm.Width = 800;
+			m_RenderForm.Height = 600;
 			m_GraphicsDevice = new GraphicsDevice(m_RenderForm);
 			m_ImGuiRenderer = new ImGuiRenderer(m_RenderForm, m_GraphicsDevice);
 		}
@@ -24,10 +27,11 @@ namespace VideoLib
 			RenderLoop.Run(m_RenderForm, () =>
 			{
 				m_GraphicsDevice.ClearScreen();
+
 				m_ImGuiRenderer.BeforeLayout();
-				ImGui.ShowDemoWindow();
-				m_ImGuiRenderer.AfterLayout();
 				callback();
+				m_ImGuiRenderer.AfterLayout();
+
 				m_GraphicsDevice.Present();
 			});
 		}

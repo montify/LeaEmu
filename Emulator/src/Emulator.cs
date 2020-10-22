@@ -15,14 +15,14 @@ namespace EmulatorLib
 		private OpCodeTable m_OpCodeLookUpTable = new OpCodeTable();
 
 		D3D11VideoDriver m_Video;
-		
+
 		public Emulator()
 		{
 			m_memory = new Memory(ushort.MaxValue);
 			m_Cpu = new Cpu(m_memory);
 			m_Video = new D3D11VideoDriver();
-		
-		
+
+
 		}
 
 		public void LoadProgramm(string byteCode)
@@ -42,6 +42,7 @@ namespace EmulatorLib
 		{
 			m_Video.Run(() =>
 			{
+
 				var instruction = m_OpCodeLookUpTable.GetCpuInstruction(m_Cpu.m_memory.Read(m_Cpu.m_register.Read_PC()));
 
 				// Fetch firstOperand, dont care if any operand is needed for now
@@ -50,7 +51,15 @@ namespace EmulatorLib
 				instruction.FirstOperand = ReadOperand(instruction.InstructionLenghtInByte - 1);
 				instruction.SecondOperand = ReadOperand(instruction.InstructionLenghtInByte - 2);
 
-				m_Cpu.Execute(instruction);
+				ImGuiNET.ImGui.Text("REG_A: " + m_Cpu.m_register.Read_REG_A());
+				ImGuiNET.ImGui.Text("REG_X: " + m_Cpu.m_register.Read_REG_X());
+				ImGuiNET.ImGui.Text("REG_Y: " + m_Cpu.m_register.Read_REG_Y());
+				ImGuiNET.ImGui.Text("CarryFlag: " + m_Cpu.m_register.Read_Carry_Flag());
+				ImGuiNET.ImGui.Text("ZeroFlag: " + m_Cpu.m_register.Read_Zero_Flag());
+				ImGuiNET.ImGui.Text("NextOp: " + instruction.OpCode + " |Value: " + instruction.FirstOperand + "," + instruction.SecondOperand);
+
+				if (ImGuiNET.ImGui.Button("Next Step"))
+					m_Cpu.Execute(instruction);
 			});
 
 			m_Video.Dispose();

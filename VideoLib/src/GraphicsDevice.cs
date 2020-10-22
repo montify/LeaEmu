@@ -26,7 +26,7 @@ namespace VideoLib
 
 		public void ClearScreen()
 		{
-			m_Device.ImmediateContext.ClearRenderTargetView(m_RenderView, Color.Red);
+			m_Device.ImmediateContext.ClearRenderTargetView(m_RenderView, Color.Black);
 		}
 
 		public void SetTopology(PrimitiveTopology topology)
@@ -57,7 +57,7 @@ namespace VideoLib
 		}
 		public void Present()
 		{
-			m_Swapchain.Present(0, PresentFlags.None);
+			m_Swapchain.Present(1, PresentFlags.None);
 		}
 
 		private void CreateDeviceAndSwapChain()

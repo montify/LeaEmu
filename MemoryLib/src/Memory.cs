@@ -38,7 +38,7 @@ namespace MemoryLib
 			return m_memory[adress];
 		}
 
-		public String GetMemoryAsString(ushort start, ushort end)
+		public StringBuilder DebugMemory(ushort start, ushort end)
 		{
 			if (start < 0 && end > m_memory.Length)
 				throw new OutOfMemoryException("");
@@ -76,12 +76,12 @@ namespace MemoryLib
 				}
 			}
 
-			return stringbuilder.ToString();
+			return stringbuilder;
 		}
 
-		public String GetStackRegionAsString()
+		public StringBuilder DebugStackRegion()
 		{
-			return GetMemoryAsString(0x0100, 0x01FF).ToString();
+			return DebugMemory(0x0100, 0x01FF);
 		}
 	}
 }

@@ -4,12 +4,14 @@ using SharpDX.Direct3D;
 using SharpDX.Direct3D11;
 using SharpDX.DXGI;
 using SharpDX.Windows;
-using Device = SharpDX.Direct3D11.Device;
+
 
 namespace VideoLib
 {
+	using Device = SharpDX.Direct3D11.Device;
 	public class GraphicsDevice : IDisposable
 	{
+		public Device GetNativeDevice => m_Device;
 		private readonly RenderForm m_RenderForm;
 		private Device m_Device;
 		private SwapChain m_Swapchain;
@@ -17,12 +19,15 @@ namespace VideoLib
 		private Texture2D m_BackBuffer;
 		private Viewport m_ViewPort;
 
+<<<<<<< HEAD:VideoLib/src/D3D11Framework/GraphicsDevice.cs
 		public Viewport Viewport => m_ViewPort;
 		public Device GetNativeDevice => m_Device;
 
+=======
+>>>>>>> parent of 2e6e8f2... Refactor this mess ;):VideoLib/src/GraphicsDevice.cs
 		public GraphicsDevice(RenderForm renderForm)
 		{
-			m_RenderForm = renderForm;
+			this.m_RenderForm = renderForm;
 			CreateDeviceAndSwapChain();
 
 			m_ViewPort = new Viewport(0, 0, m_RenderForm.ClientSize.Width, m_RenderForm.ClientSize.Height, 0.0f, 1.0f);
@@ -49,19 +54,22 @@ namespace VideoLib
 
 		public void SetIndexBuffer(IndexBuffer indexBuffer, int offset = 0)
 		{
-			m_Device.ImmediateContext.InputAssembler.SetIndexBuffer(indexBuffer.NativeBuffer, indexBuffer.Format, offset);
+			m_Device.ImmediateContext.InputAssembler.SetIndexBuffer(indexBuffer.NativeBuffer, indexBuffer.format, offset);
 		}
-
 		public void DrawIndexed(int count, int startIndexLocation, int baseVertexLocation)
 		{
 			if (count <= 0)
 				throw new ArgumentException("Count cant be 0");
 
 			m_Device.ImmediateContext.DrawIndexed(count, startIndexLocation, baseVertexLocation);
+<<<<<<< HEAD:VideoLib/src/D3D11Framework/GraphicsDevice.cs
 		}
 		public void Draw(int vertexCount, int startLocation)
 		{
 			m_Device.ImmediateContext.Draw(vertexCount, startLocation);
+=======
+
+>>>>>>> parent of 2e6e8f2... Refactor this mess ;):VideoLib/src/GraphicsDevice.cs
 		}
 		public void Present()
 		{
@@ -86,7 +94,6 @@ namespace VideoLib
 			Device.CreateWithSwapChain(DriverType.Hardware, DeviceCreationFlags.None, desc, out m_Device, out m_Swapchain);
 
 			m_BackBuffer = Texture2D.FromSwapChain<Texture2D>(m_Swapchain, 0);
-
 			m_RenderView = new RenderTargetView(m_Device, m_BackBuffer);
 			m_Device.ImmediateContext.Rasterizer.SetViewport(m_ViewPort);
 			m_Device.ImmediateContext.OutputMerger.SetTargets(m_RenderView);

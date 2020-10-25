@@ -1,28 +1,29 @@
 <Project Sdk="Microsoft.NET.Sdk.WindowsDesktop">
 
 <ItemGroup>
-    <ProjectReference Include="..\MemoryLib\MemoryLib.csproj" />
-      <ProjectReference Include="..\CpuLib\CpuLib.csproj" />
-  </ItemGroup>
+  <ProjectReference Include="..\MemoryLib\MemoryLib.csproj" />
+  <ProjectReference Include="..\CpuLib\CpuLib.csproj" />
+</ItemGroup>
 
 <ItemGroup>
   <PackageReference Include="SharpDx" Version="4.2.0" />
   <PackageReference Include="SharpDX.Desktop" Version="4.2.0" />
-   <PackageReference Include="SharpDX.Direct3D11" Version="4.2.0" />
-    <PackageReference Include="SharpDX.DXGI" Version="4.2.0" />
-     <PackageReference Include="SharpDX.D3DCompiler" Version="4.2.0" />
-      <PackageReference Include="SharpDX.Mathematics" Version="4.2.0" />
-       <PackageReference Include="SharpDX.Direct3D11.Effects" Version="4.2.0" />
-      <PackageReference Include="StbImageSharp" Version="2.22.4" />
-       <PackageReference Include="ImGui.Net" Version="1.78.0" />
-
-       
+  <PackageReference Include="SharpDX.Direct3D11" Version="4.2.0" />
+  <PackageReference Include="SharpDX.DXGI" Version="4.2.0" />
+  <PackageReference Include="SharpDX.D3DCompiler" Version="4.2.0" />
+  <PackageReference Include="SharpDX.Mathematics" Version="4.2.0" />
+  <PackageReference Include="SharpDX.Direct3D11.Effects" Version="4.2.0" />
+  <PackageReference Include="StbImageSharp" Version="2.22.4" />
+  <PackageReference Include="ImGui.Net" Version="1.78.0" />
+   <PackageReference Include="SharpFont.Dependencies" Version="2.6.0" />
+  <PackageReference Include="SharpFont" Version="4.0.1" />
+ 
 </ItemGroup>
 
   <PropertyGroup>
-     <TargetFramework>netcoreapp3.1</TargetFramework>
-       <UseWindowsForms>true</UseWindowsForms>
-       <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
+    <TargetFramework>netcoreapp3.1</TargetFramework>
+    <UseWindowsForms>true</UseWindowsForms>
+    <AllowUnsafeBlocks>true</AllowUnsafeBlocks>
   </PropertyGroup>
 
 </Project>

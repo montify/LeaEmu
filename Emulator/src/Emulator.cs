@@ -55,6 +55,7 @@ namespace EmulatorLib
 
 				ImguiDebug(instruction, cycles);
 			
+			
 				if (ImGuiNET.ImGui.Button("Next Step"))
 				{
 					cycles++;

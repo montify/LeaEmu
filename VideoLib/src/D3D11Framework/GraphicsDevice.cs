@@ -15,13 +15,17 @@ namespace VideoLib
 		private SwapChain m_Swapchain;
 		private RenderTargetView m_RenderView;
 		private Texture2D m_BackBuffer;
+		private Viewport m_ViewPort;
 
+		public Viewport Viewport => m_ViewPort;
 		public Device GetNativeDevice => m_Device;
 
 		public GraphicsDevice(RenderForm renderForm)
 		{
 			m_RenderForm = renderForm;
 			CreateDeviceAndSwapChain();
+
+			m_ViewPort = new Viewport(0, 0, m_RenderForm.ClientSize.Width, m_RenderForm.ClientSize.Height, 0.0f, 1.0f);
 		}
 
 		public void ClearScreen()
@@ -55,7 +59,10 @@ namespace VideoLib
 
 			m_Device.ImmediateContext.DrawIndexed(count, startIndexLocation, baseVertexLocation);
 		}
-
+		public void Draw(int vertexCount, int startLocation)
+		{
+			m_Device.ImmediateContext.Draw(vertexCount, startLocation);
+		}
 		public void Present()
 		{
 			m_Swapchain.Present(1, PresentFlags.None);
@@ -81,7 +88,7 @@ namespace VideoLib
 			m_BackBuffer = Texture2D.FromSwapChain<Texture2D>(m_Swapchain, 0);
 
 			m_RenderView = new RenderTargetView(m_Device, m_BackBuffer);
-			m_Device.ImmediateContext.Rasterizer.SetViewport(new Viewport(0, 0, m_RenderForm.ClientSize.Width, m_RenderForm.ClientSize.Height, 0.0f, 1.0f));
+			m_Device.ImmediateContext.Rasterizer.SetViewport(m_ViewPort);
 			m_Device.ImmediateContext.OutputMerger.SetTargets(m_RenderView);
 		}
 
